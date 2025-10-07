@@ -16,11 +16,17 @@ In order to follow along the Workshop please make sure you have the following to
 ### Chainguard Workshop Demo
 ## Chainctl
 1. If you have not installed the chainctl yet go here: https://edu.chainguard.dev/chainguard/chainctl-usage/how-to-install-chainctl/ and install it
-```python
-def main():
-\tfor i in range(3):
-\t\tprint("Einrückung funktioniert")
-
+```
+chainctl auth login
+```
+```
+chainctl auth status
+```
+```
+chainctl update
+```
+```
+chainctl auth configure-docker
 ```
 ## Chainguard Images
 ## Security Scanner

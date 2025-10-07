@@ -15,23 +15,14 @@ In order to follow along the Workshop please make sure you have the following to
 ### Chainguard Demo
 ### Chainguard Workshop Demo
 ## Chainctl
-1. If you have not installed the chainctl yet go here: https://edu.chainguard.dev/chainguard/chainctl-usage/how-to-install-chainctl/ and install it
-Authenticate against the Chainguard Console
+1. If you have not installed the chainctl yet go here: https://edu.chainguard.dev/chainguard/chainctl-usage/how-to-install-chainctl/. After you have installed the Chainctl run the below commands to make sure you are all good to go.
 ```
 chainctl auth login
-```
-Check the Auth Status
-```
 chainctl auth status
-```
-Check if there are any updates available
-```
 chainctl update
-```
-Configure your Docker Engine to use our Images
-```
 chainctl auth configure-docker
 ```
+If configure-docker does not work for you check our pull tokens: https://edu.chainguard.dev/chainguard/chainguard-images/chainguard-registry/authenticating/#managing-pull-tokens-in-the-chainguard-console
 ## Chainguard Images
 ## Security Scanner
 ### How Scanners work

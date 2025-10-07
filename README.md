@@ -16,8 +16,11 @@ In order to follow along the Workshop please make sure you have the following to
 ### Chainguard Workshop Demo
 ## Chainctl
 1. If you have not installed the chainctl yet go here: https://edu.chainguard.dev/chainguard/chainctl-usage/how-to-install-chainctl/ and install it
-```
-console.log('Code Tab A');
+```python
+def main():
+\tfor i in range(3):
+\t\tprint("Einrückung funktioniert")
+
 ```
 ## Chainguard Images
 ## Security Scanner

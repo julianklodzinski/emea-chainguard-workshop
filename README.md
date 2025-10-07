@@ -1,5 +1,6 @@
 # 1. Workshop Account Access
 # 2. Workshop Preparations
+In order to follow along the Workshop please make sure you have the following tools installed.
  - Chainctl
  - Docker
  - Podman
@@ -14,6 +15,10 @@
 ### Chainguard Demo
 ### Chainguard Workshop Demo
 ## Chainctl
+1. If you have not installed the chainctl yet go here: https://edu.chainguard.dev/chainguard/chainctl-usage/how-to-install-chainctl/ and install it
+```javascript I'm A tab
+console.log('Code Tab A');
+```
 ## Chainguard Images
 ## Security Scanner
 ### How Scanners work

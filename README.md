@@ -1,6 +1,13 @@
 # 1. Workshop Account Access
 # 2. Workshop Preparations
-## - Chainctl, Docker, Podman, Grype, Trivy, jq, yq, cosign
+ - Chainctl
+ - Docker
+ - Podman
+ - Grype
+ - Trivy
+ - jq
+ - yq
+ - cosign
 # 3. Workshop Content
 ## Chainguard Demo
 ### Chainguard Intro

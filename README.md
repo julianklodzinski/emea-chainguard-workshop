@@ -67,7 +67,7 @@ Security scanners like Grype, Trivy and others are tools designed to detect vuln
 ### Grype
 Using Grype is easy and straight forward. To scan an image you run ```grype image:tag``` and it will do it's making. The Results of Grype are easy to understand and will look similar to this.
 ```
-Cataloged contents                                                                                                                  ⠙ Vulnerability DB                ━━━━━━━━━━━━━━━━━━━━  [7.0 MB / 90 MB]  
+Cataloged contents              ━━━━━━━━━━━━━━━━━━━━  [7.0 MB / 90 MB]  
  ⠙ Pulling image                   
  ✔ Vulnerability DB                
  ✔ Pulled image                    
@@ -209,4 +209,69 @@ docker run --rm linky
 As you can see, Chainguard Images do work. And Multi-Stage builds are one way of customizing them to your needs.
 
 ## Dockerfile Converter && DFC UI (Who is this???)
+At some point in time you might wonder about the migration efforts from your current estate towards Chainguard. If you haven't yet I'm sure you will now :D
+We tried to make it as easy as possible for our users to consume Chainguard. This includes also migrations.
+
+Navigate into the folder ```dfc`` under examples to play around with our Dockerfile Converter. Depending on where you are you might want to run the following
+```
+cd examples/dfc 
+```
+
+In this folder you will find a classic dockerfile which pulls and builds a Python Image.
+
+Analyze the Dockerfile and if you fully understood what is happening move on and run the following command.
+
+```
+dfc dockerfile --org emea-chainguard-workshop >> dockerfile.cgr
+```
+Now spend some time to see what happend to your Dockerfile and what pieces of the File got changed. Share in your Group the Number of changes dfc has performed.
+
 ## APK add and search
+As you might have realized already Chainguard Images use apk as a manager. If you are looking for packages an easy way to do so is the following
+```
+docker run -it --rm --entrypoint /bin/sh cgr.dev/chainguard/wolfi-base
+```
+
+```
+apk update
+```
+
+```
+apk search php*8.2*xml*
+```
+You should get a very similiar output to this one
+```
+php-8.2-simplexml-8.2.17-r0
+php-8.2-simplexml-config-8.2.17-r0
+php-8.2-xml-8.2.17-r0
+php-8.2-xml-config-8.2.17-r0
+php-8.2-xmlreader-8.2.17-r0
+php-8.2-xmlreader-config-8.2.17-r0
+php-8.2-xmlwriter-8.2.17-r0
+php-8.2-xmlwriter-config-8.2.17-r0
+php-simplexml-8.2.11-r1
+php-xml-8.2.11-r1
+php-xmlreader-8.2.11-r1
+php-xmlwriter-8.2.11-r1
+```
+You can also search for commands providing you with an indication of where it is part of
+```
+apk search cmd:useradd
+```
+And the result should pretty much look like this: ```shadow-4.18.0-r5```
+And to top it - to find dependencies try this 
+```
+apk -R info shadow
+```
+Which should deliver something similiar to
+```
+...
+shadow-4.15.1-r0 depends on:
+so:ld-linux-x86-64.so.2
+so:libbsd.so.0
+so:libc.so.6
+so:libcrypt.so.1
+so:libpam.so.0
+so:libpam_misc.so.0
+```
+## Thank you :)

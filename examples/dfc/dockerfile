@@ -1,0 +1,21 @@
+FROM python:3.9 as builder
+WORKDIR /app
+
+RUN apt update && apt install -y curl git
+
+ENV PATH="/venv/bin:$PATH"
+RUN python -m venv /app/venv
+
+COPY requirements.txt /app
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+FROM python:3.9-slim
+WORKDIR /app
+
+ENV PATH="/venv/bin:$PATH"
+
+COPY main.py /app
+COPY --from=builder /app/venv /venv
+
+CMD ["python", "/app/main.py"]

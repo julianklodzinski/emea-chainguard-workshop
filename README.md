@@ -10,6 +10,7 @@ In order to follow along the Workshop please make sure you have the following to
  - jq
  - yq
  - cosign
+ - dfc
 # 3. Workshop Content
 ## Chainguard Demo
 ### Chainguard Intro

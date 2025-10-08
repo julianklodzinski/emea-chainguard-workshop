@@ -93,8 +93,8 @@ Now in your Group create a plan on how to analyze and fix the vulnerabilitites s
 Just kidding :D Let's not do this, we would not finish this Workshop anywhere soon :D
 
 ### Trivy
-Trivy will provide a pretty similar summary just in a different design.
-````
+Trivy will provide a pretty similar summary just in a different design. BUT Trivy does not report any Vulnerabilities where there is no fix available - concerning? Yes!
+```
 Report Summary
 
 ┌──────────────────────────────────────────────────────────────────────┬────────────┬─────────────────┬─────────┐

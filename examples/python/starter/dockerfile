@@ -1,0 +1,7 @@
+FROM cgr.dev/emea-chainguard-workshop/python:latest
+
+WORKDIR /app
+
+COPY app.py /app
+
+ENTRYPOINT [ "python", "/app/app.py" ]

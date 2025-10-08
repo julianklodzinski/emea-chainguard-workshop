@@ -166,10 +166,47 @@ Provide Command here as soon as Catalog is provisioned
 
 Now you have verified that the Image you just downloaded was coming from us and was not changed on the way to you. In other words the Question "Can I trust this image actually comes from Chainguard and hasn’t been changed or tampered with?" you can answer with "Yes" now.
 
-***Task
-Try to verify the public Python image 
+Try to verify the public Python image as well and discuss in the room how you would do it.
 
 ## Build and Test Chainguard Python Image
+Now you might wonder, wait, no CVEs, a lot smaller, there is something wrong... these images can't work! You are wrong, but let's find out together and build a simple Python App together.
+```
+cd examples/python/starter
+```
+Check out the Python Application. IT will print out the Operating System it runs on. The Output will look similiar to this: ```Hello Wordl! From Linux operating system on 64bit ELF architecture``` Now build your image:
+```
+docker build -f dockerfile -t crg-python:standard .
+```
+And run it yourself with
+```
+docker run -v .:/app crg-python:standard
+```
+You can also change the Chainguard Image to the public Python Image if you want to spot differences in the OS.
+
+This has worked easily. But it is also a very simple example. So let's have a look at a more relalistic approach where we need to install dependencies.
+
 ## Build Multi-Stage Build mit Python
+Navigate into the Folder ```multi-stage``` - depending on where you are in your Shell you might have to use a different command.
+```
+cd examples/python/multi-stage
+```
+Explore the linky.py Application Code and the requirements.txt file which we use to include some libraries.
+
+Next: Pull down an Image for our Python Application. The App will show the Image in your Shell :) Pretty cool, isn't it?
+```
+curl -O https://raw.githubusercontent.com/chainguard-dev/edu-images-demos/main/python/linky/linky.png
+```
+Go and explore your Dockerfile - especially line 1 and 15 are important as we start our build with a -dev Image, install all dependencies, and move over to a minimal image.
+
+Now build your Image
+```
+docker build . --pull -t linky
+```
+and of course run it and see what happens
+```
+docker run --rm linky
+```
+As you can see, Chainguard Images do work. And Multi-Stage builds are one way of customizing them to your needs.
+
 ## Dockerfile Converter && DFC UI (Who is this???)
 ## APK add and search

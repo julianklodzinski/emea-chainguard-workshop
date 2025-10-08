@@ -123,18 +123,18 @@ One Scanner is not enough! And that's why you need to build from source.
 ### How to trick Scanners
 If you think you can't trick a Scanner to believe there is no CVE you are dead wrong. As you already saw in the Trivy vs. Grype scan there is no standard on how Scanners analyze an image and if you know how they do it it's faily easy to trick them by:
 
-Omitting Vulnerable Packages from SBOMs: If a SBOM is manually created or edited to exclude packages known to be vulnerable, the scanner won't see or report those 
+- Omitting Vulnerable Packages from SBOMs: If a SBOM is manually created or edited to exclude packages known to be vulnerable, the scanner won't see or report those 
 vulnerabilities. This hides risks from the scan results.
 
-Falsifying Package Versions in Metadata: Changing version numbers in SBOMs or metadata to ones perceived as safe (even if the actual software is outdated or vulnerable) can prevent scanners from flagging CVEs. Scanners match version numbers to vulnerability databases, so supplying incorrect data misleads them.
+- Falsifying Package Versions in Metadata: Changing version numbers in SBOMs or metadata to ones perceived as safe (even if the actual software is outdated or vulnerable) can prevent scanners from flagging CVEs. Scanners match version numbers to vulnerability databases, so supplying incorrect data misleads them.
 
-Renaming or Repackaging Components: Packaging a vulnerable library under a different name, or with custom metadata fields, can prevent scanners from properly identifying the component and its vulnerabilities.
+- Renaming or Repackaging Components: Packaging a vulnerable library under a different name, or with custom metadata fields, can prevent scanners from properly identifying the component and its vulnerabilities.
 
-Using Untracked or Private Packages: Including dependencies that aren’t published in common databases (NVD, upstream advisories, etc.), or modifying open source codebases to diverge significantly from tracked versions, can keep real vulnerabilities hidden from scanners.
+- Using Untracked or Private Packages: Including dependencies that aren’t published in common databases (NVD, upstream advisories, etc.), or modifying open source codebases to diverge significantly from tracked versions, can keep real vulnerabilities hidden from scanners.
 
-Suppressing Transitive Dependencies: Many vulnerabilities come from libraries that are included indirectly (transitive dependencies). Not listing these in SBOMs or metadata, or using tools that don’t detect them, limits what a scanner can find.
+- Suppressing Transitive Dependencies: Many vulnerabilities come from libraries that are included indirectly (transitive dependencies). Not listing these in SBOMs or metadata, or using tools that don’t detect them, limits what a scanner can find.
 
-Manipulating Build Metadata: Changing how certain packages are recorded in build manifests or image labels can cause scanners to overlook them or misinterpret their version/status.
+- Manipulating Build Metadata: Changing how certain packages are recorded in build manifests or image labels can cause scanners to overlook them or misinterpret their version/status.
 
 That is why the SLSA Framework is in place and you should only trust sources which can verify that nothing of this happend - like Chainguard.
 

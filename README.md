@@ -1,3 +1,4 @@
+# 0. 
 # 1. Workshop Account Access
 # 2. Workshop Preparations
 In order to follow along the Workshop please make sure you have the following tools installed.
@@ -116,12 +117,59 @@ Legend:
 ```
 
 ### Learnings
-One Scanner is not enough!
+One Scanner is not enough! And that's why you need to build from source.
 
-### How to manipulate Scanners
-## Verifying Container Image - Provenance
-## Image Attestations
-## SBOMs
+### How to trick Scanners
+If you think you can't trick a Scanner to believe there is no CVE you are dead wrong. As you already saw in the Trivy vs. Grype scan there is no standard on how Scanners analyze an image and if you know how they do it it's faily easy to trick them by:
+
+Omitting Vulnerable Packages from SBOMs: If a SBOM is manually created or edited to exclude packages known to be vulnerable, the scanner won't see or report those 
+vulnerabilities. This hides risks from the scan results.
+
+Falsifying Package Versions in Metadata: Changing version numbers in SBOMs or metadata to ones perceived as safe (even if the actual software is outdated or vulnerable) can prevent scanners from flagging CVEs. Scanners match version numbers to vulnerability databases, so supplying incorrect data misleads them.
+
+Renaming or Repackaging Components: Packaging a vulnerable library under a different name, or with custom metadata fields, can prevent scanners from properly identifying the component and its vulnerabilities.
+
+Using Untracked or Private Packages: Including dependencies that aren’t published in common databases (NVD, upstream advisories, etc.), or modifying open source codebases to diverge significantly from tracked versions, can keep real vulnerabilities hidden from scanners.
+
+Suppressing Transitive Dependencies: Many vulnerabilities come from libraries that are included indirectly (transitive dependencies). Not listing these in SBOMs or metadata, or using tools that don’t detect them, limits what a scanner can find.
+
+Manipulating Build Metadata: Changing how certain packages are recorded in build manifests or image labels can cause scanners to overlook them or misinterpret their version/status.
+
+That is why the SLSA Framework is in place and you should only trust sources which can verify that nothing of this happend - like Chainguard.
+
+## Provenance - Verify Container Images from Chainguard
+Container image provenance verification is the process of confirming that a container image originates from a trusted source and is built exactly as claimed. This is crucial for ensuring software supply chain integrity and defending against tampering or hidden vulnerabilities.
+
+All Chainguard container images contain verifiable signatures and high-quality SBOMs (software bill of materials), features that enable users to confirm the origin of each image build and have a detailed list of everything that is packed within.
+
+You'll need [cosign](https://docs.sigstore.dev/cosign/system_config/installation/) and [jq](https://jqlang.org/download/) in order to download and verify image attestations.
+
+So let's get started :)
+
+### Verifying python Image Signatures
+The python Chainguard Containers are signed using Sigstore, and you can check the included signatures using cosign. The cosign verify command will pull detailed information about all signatures found for the provided image.
+```
+Provide Command here as soon as Catalog is provisioned
+```
+
+### Downloading Python Image Attestations
+To download an attestation, use the cosign download attestation command and provide both the predicate type and the build platform. For example, the following command will obtain the SBOM for the python image on linux/amd64:
+```
+Provide Command here as soon as Catalog is provisioned
+```
+
+### Verifying python Image Attestations
+You can use the cosign verify-attestation command to check the signatures of the python image attestations:
+```
+Provide Command here as soon as Catalog is provisioned
+```
+
+Now you have verified that the Image you just downloaded was coming from us and was not changed on the way to you. In other words the Question "Can I trust this image actually comes from Chainguard and hasn’t been changed or tampered with?" you can answer with "Yes" now.
+
+***Task
+Try to verify the public Python image 
+
 ## Build and Test Chainguard Python Image
 ## Build Multi-Stage Build mit Python
 ## Dockerfile Converter && DFC UI (Who is this???)
+## APK add and search

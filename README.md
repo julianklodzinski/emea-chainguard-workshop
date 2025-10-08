@@ -15,7 +15,7 @@ In order to follow along the Workshop please make sure you have the following to
 ### Chainguard Demo
 ### Chainguard Workshop Demo
 ## Chainctl
-If you have not installed the chainctl yet go here: https://edu.chainguard.dev/chainguard/chainctl-usage/how-to-install-chainctl/. After you have installed the Chainctl run the below commands to make sure you are all good to go.
+If you have not installed the chainctl [follow our documentation here](https://edu.chainguard.dev/chainguard/chainctl-usage/how-to-install-chainctl/). After you have installed the Chainctl run the below commands to make sure you are all good to go.
 
 First connect your Chainctl with your Account
 ```
@@ -34,8 +34,24 @@ To connect your Docker and Chainguard Image Catalog run the below
 chainctl auth configure-docker
 ```
 
-If configure-docker does not work for you check our pull tokens: https://edu.chainguard.dev/chainguard/chainguard-images/chainguard-registry/authenticating/#managing-pull-tokens-in-the-chainguard-console
+If configure-docker does not work for you [check out our pull tokens](https://edu.chainguard.dev/chainguard/chainguard-images/chainguard-registry/authenticating/#managing-pull-tokens-in-the-chainguard-console)
+
 ## Chainguard Images
+Let's get first all images we need for our Workshop today.
+
+```
+docker pull cgr.dev/emea-chainguard-workshop/python:latest
+```
+```
+docker pull cgr.dev/emea-chainguard-workshop/python:latest-dev
+```
+```
+docker pull cgr.dev/emea-chainguard-workshop/nginx:latest
+```
+```
+docker pull cgr.dev/emea-chainguard-workshop/nginx:latest-dev
+```
+Now you should be good to go :)
 ## Security Scanner
 ### How Scanners work
 ### How to manipulate Scanners

@@ -91,7 +91,31 @@ Now in your Group create a plan on how to analyze and fix the vulnerabilitites s
 ...
 ...
 Just kidding :D Let's not do this, we would not finish this Workshop anywhere soon :D
+
+### Trivy
+Trivy will provide a pretty similar summary just in a different design.
+````
+Report Summary
+
+┌──────────────────────────────────────────────────────────────────────┬────────────┬─────────────────┬─────────┐
+│                             Target                                   │    Type    │ Vulnerabilities │ Secrets │
+├──────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
+│ cgr.dev/emea-chainguard-workshop/python:latest (chainguard 20230214) │ chainguard │        0        │    -    │
+└──────────────────────────────────────────────────────────────────────┴────────────┴─────────────────┴─────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+```
+
 ### How Scanners work
+Security scanners like Grype, Trivy and others are tools designed to detect vulnerabilities (CVEs) in software environments such as container images, filesystems, and source code repositories. They typically perform the following activities:
+
+1. Dependency Mapping: Both scanners analyze the software components included in a container image or filesystem. They identify both direct and transitive dependencies—meaning, not just what you’ve added, but also libraries your dependencies rely on. 
+2. SBOM Ingestion: Scanners can ingest Software Bills of Materials (SBOMs), giving comprehensive visibility into every package included in the artifact. This improves accuracy and coverage when scanning, as SBOMs provide detailed lists of all components. 
+3. Vulnerability Checking: Once dependencies are identified, the scanners compare those package versions against multiple vulnerability databases (like the NVD, vendor advisories, and others including Wolfi SecDB for Grype). If a dependency's version matches a known vulnerable version, the scanner flags it. 
+4. Reporting & Remediation: The scanner's output lists all detected CVEs, severity ratings, and (where possible) recommends available updates or patches. They offer different output formats for developer tooling and CI/CD integration, making it easy to include in automated pipelines.
+
+
 ### How to manipulate Scanners
 ## Verifying Container Image - Provenance
 ## Image Attestations

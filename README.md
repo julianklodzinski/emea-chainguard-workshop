@@ -59,10 +59,10 @@ At Chainguard we use plenty of Security Scanners and two we love the most - Gryp
 ### How Scanners work
 Security scanners like Grype, Trivy and others are tools designed to detect vulnerabilities (CVEs) in software environments such as container images, filesystems, and source code repositories. They typically perform the following activities:
 
-1. Dependency Mapping: Both scanners analyze the software components included in a container image or filesystem. They identify both direct and transitive dependencies—meaning, not just what you’ve added, but also libraries your dependencies rely on. 
-2. SBOM Ingestion: Scanners can ingest Software Bills of Materials (SBOMs), giving comprehensive visibility into every package included in the artifact. This improves accuracy and coverage when scanning, as SBOMs provide detailed lists of all components. 
-3. Vulnerability Checking: Once dependencies are identified, the scanners compare those package versions against multiple vulnerability databases (like the NVD, vendor advisories, and others including Wolfi SecDB for Grype). If a dependency's version matches a known vulnerable version, the scanner flags it. 
-4. Reporting & Remediation: The scanner's output lists all detected CVEs, severity ratings, and (where possible) recommends available updates or patches. They offer different output formats for developer tooling and CI/CD integration, making it easy to include in automated pipelines.
+- Dependency Mapping: Both scanners analyze the software components included in a container image or filesystem. They identify both direct and transitive dependencies—meaning, not just what you’ve added, but also libraries your dependencies rely on. 
+- SBOM Ingestion: Scanners can ingest Software Bills of Materials (SBOMs), giving comprehensive visibility into every package included in the artifact. This improves accuracy and coverage when scanning, as SBOMs provide detailed lists of all components. 
+- Vulnerability Checking: Once dependencies are identified, the scanners compare those package versions against multiple vulnerability databases (like the NVD, vendor advisories, and others including Wolfi SecDB for Grype). If a dependency's version matches a known vulnerable version, the scanner flags it. 
+- Reporting & Remediation: The scanner's output lists all detected CVEs, severity ratings, and (where possible) recommends available updates or patches. They offer different output formats for developer tooling and CI/CD integration, making it easy to include in automated pipelines.
 
 ### Grype
 Using Grype is easy and straight forward. To scan an image you run ```grype image:tag``` and it will do it's making. The Results of Grype are easy to understand and will look similar to this.

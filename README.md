@@ -1,9 +1,9 @@
 # Chainguard Images Hands-on Workshop
 The top arguments why you might want to look into Chainguard Images and this workshop.
-- We want minimal and CVE free images because
--- We spend to much time checking CVEs
--- We have customers requiring CVE free images
--- We have to meet certain compliance targets
+- We want minimal and CVE free images
+- We spend to much time checking CVEs
+- We have customers requiring CVE free images
+- We have to meet certain compliance targets
 
 # 1. Workshop Account Access
 At the beginning of the Workshop we will share an invite Link with you to obtain access to your own Workshop Organization in Chainguard.

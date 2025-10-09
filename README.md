@@ -307,28 +307,57 @@ Because of these limits, don’t trust a single scan result by itself. Build def
 
 Use this checklist to harden image pipelines and detect tampering:
 
-☑️ Run multiple scanners (different feeds/heuristics) and compare outputs
+✅ Run multiple scanners (different feeds/heuristics) and compare outputs
 
-☑️ Require and verify SBOMs for every published image; ensure SBOM generation is part of CI
+✅ Require and verify SBOMs for every published image; ensure SBOM generation is part of CI
 
-☑️ Sign images and attestations; verify signatures in downstream environments (e.g., using cosign)
+✅ Sign images and attestations; verify signatures in downstream environments (e.g., using cosign)
 
-☑️ Enforce reproducible builds and retain build artifacts and attestations
+✅ Enforce reproducible builds and retain build artifacts and attestations
 
-☑️ Adopt a provenance/attestation standard such as SLSA — require authenticated, auditable build inputs
+✅ Adopt a provenance/attestation standard such as SLSA — require authenticated, auditable build inputs
 
-☑️ Include SBOM and provenance verification as gate checks in CI/CD
+✅ Include SBOM and provenance verification as gate checks in CI/CD
 
-☑️ Monitor for unexpected packages or package counts in images (automated guardrails)
+✅ Monitor for unexpected packages or package counts in images (automated guardrails)
 
-## Provenance - Verify Container Images from Chainguard
-Container image provenance verification is the process of confirming that a container image originates from a trusted source and is built exactly as claimed. This is crucial for ensuring software supply chain integrity and defending against tampering or hidden vulnerabilities.
 
-All Chainguard container images contain verifiable signatures and high-quality SBOMs (software bill of materials), features that enable users to confirm the origin of each image build and have a detailed list of everything that is packed within.
 
-You'll need [cosign](https://docs.sigstore.dev/cosign/system_config/installation/) and [jq](https://jqlang.org/download/) in order to download and verify image attestations.
+## 🧾 Provenance — Verify Container Images from Chainguard
 
-So let's get started :)
+Container image provenance verification is the process of confirming that a container image:
+
+- Comes from a trusted source, and
+- Was built exactly as claimed, without tampering or hidden components.
+
+This step is a critical part of securing your software supply chain. It ensures every image you deploy has traceable, auditable origins.
+
+### 🔐 Why Provenance Matters
+
+Even if your images pass a vulnerability scan, you still need to trust:
+
+- Who built the image
+- What source code was used
+- What tools and dependencies were included
+
+Chainguard Images solve this by embedding:
+
+- Verifiable signatures — proof that the image was built and signed by Chainguard.
+- High-quality SBOMs — complete inventories of all packages and components inside each image.
+
+Together, these enable you to verify integrity, confirm authenticity, and understand exactly what’s running in your environment.
+
+### 🧰 Tools You’ll Need
+
+Make sure you have these installed:
+
+cosign
+ — for verifying signatures and attestations
+
+jq
+ — for parsing and inspecting JSON output
+
+✅ Both tools were part of your prework checklist — if not yet installed, please do so now.
 
 ### Verifying python Image Signatures
 The python Chainguard Containers are signed using Sigstore, and you can check the included signatures using cosign. The cosign verify command will pull detailed information about all signatures found for the provided image.

@@ -1,21 +1,27 @@
-# 0. 
+# Chainguard Images Hands-on Workshop
+The top arguments why you might want to look into Chainguard Images and this workshop.
+- We want minimal and CVE free images because
+-- We spend to much time checking CVEs
+-- We have customers requiring CVE free images
+-- We have to meet certain compliance targets
+
 # 1. Workshop Account Access
+At the beginning of the Workshop we will share an invite Link with you to obtain access to your own Workshop Organization in Chainguard.
+
 # 2. Workshop Preparations
 In order to follow along the Workshop please make sure you have the following tools installed.
- - Chainctl
- - Docker
- - Podman
- - Grype
- - Trivy
- - jq
- - yq
- - cosign
- - dfc
+ - [Chainctl](https://edu.chainguard.dev/chainguard/chainctl-usage/how-to-install-chainctl/)
+ - Docker - please choose a version and vendor of your choice
+ - [Grype](https://github.com/anchore/grype?tab=readme-ov-file#installation)
+ - [Trivy](https://trivy.dev/latest/getting-started/installation/)
+ - [jq](https://jqlang.org/download/)
+ - [yq](https://github.com/mikefarah/yq?tab=readme-ov-file#install)
+ - [cosign](https://docs.sigstore.dev/cosign/system_config/installation/)
+ - [dfc](https://github.com/chainguard-dev/dfc)
+
 # 3. Workshop Content
-## Chainguard Demo
-### Chainguard Intro
-### Chainguard Demo
-### Chainguard Workshop Demo
+The Workshop will start with a short Introduction about Chainguard followed by Demo of the final Workshop for you. After that you can start working.
+
 ## Chainctl
 If you have not installed the chainctl yet [follow our documentation here and install it](https://edu.chainguard.dev/chainguard/chainctl-usage/how-to-install-chainctl/). After you have installed the Chainctl run the below commands to make sure you are all good to go.
 
@@ -68,18 +74,18 @@ Security scanners like Grype, Trivy and others are tools designed to detect vuln
 ### Grype
 Using Grype is easy and straight forward. To scan an image you run ```grype image:tag``` and it will do it's making. The Results of Grype are easy to understand and will look similar to this.
 ```
-Cataloged contents              ━━━━━━━━━━━━━━━━━━━━  [7.0 MB / 90 MB]  
+Cataloged contents              ━━━━━━━━━━━━━━━━━━━━  [7.0 MB / 90 MB]
  ⠙ Pulling image                   
- ✔ Vulnerability DB                
- ✔ Pulled image                    
- ✔ Loaded image                                                                                                                                                 
- ✔ Parsed image                                                                                                                  
- ✔ Cataloged contents                                                                                                                   
+ ✔ Vulnerability DB               
+ ✔ Pulled image                   
+ ✔ Loaded image                   
+ ✔ Parsed image                   
+ ✔ Cataloged contents             
    ├── ✔ Packages                        [25 packages]  
-   ├── ✔ Executables                     [128 executables]  
-   ├── ✔ File metadata                   [1,666 locations]  
+   ├── ✔ Executables                     [128 executables]
+   ├── ✔ File metadata                   [1,666 locations]
    └── ✔ File digests                    [1,666 files]  
- ✔ Scanned for vulnerabilities     [0 vulnerability matches]  
+ ✔ Scanned for vulnerabilities     [0 vulnerability matches]
    ├── by severity: 0 critical, 0 high, 0 medium, 0 low, 0 negligible
    └── by status:   0 fixed, 0 not-fixed, 0 ignored 
 ```

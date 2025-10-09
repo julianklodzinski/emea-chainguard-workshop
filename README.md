@@ -170,10 +170,27 @@ The results include:
 Both Grype and Trivy support various output formats (table, JSON, SARIF), making them ideal for both manual review and CI/CD integration.
 
 🧠 Interaction Tip
+
 Ask the person to your right hand side *“Who here has integrated vulnerability scanning into their CI pipeline already? What tools or challenges have you seen?”*
 
-### Grype
-Using Grype is easy and straight forward. To scan an image you run ```grype image:tag``` and it will do it's making. The Results of Grype are easy to understand and will look similar to this.
+### Scanning with Grype
+
+Grype is one of the simplest and most effective vulnerability scanners available.
+With a single command, you can analyze a container image and identify any known CVEs.
+
+#### 🔹 Running a Scan
+
+To scan an image, use the following format: ```grype image:tag```
+
+Grype will automatically:
+- Pull the image (if not already local),
+- Catalog all packages and metadata,
+- Compare dependencies against known vulnerability databases,
+- And generate a summary report.
+
+#### 📊 Example Output
+
+Here’s what a successful scan might look like:
 ```
 Cataloged contents              ━━━━━━━━━━━━━━━━━━━━  [7.0 MB / 90 MB]
  ⠙ Pulling image                   
@@ -190,24 +207,42 @@ Cataloged contents              ━━━━━━━━━━━━━━━━
    ├── by severity: 0 critical, 0 high, 0 medium, 0 low, 0 negligible
    └── by status:   0 fixed, 0 not-fixed, 0 ignored 
 ```
-Before you now start running the commands prepare notes where you can safe the results for later comparison. Now it's time for the truth - run the below:
-```
-grype cgr.dev/emea-chainguard-workshop/python:latest
-```
-```
-grype cgr.dev/emea-chainguard-workshop/python:latest-dev
-```
+If you see “0 vulnerability matches” — congrats 🎉 You’re looking at a CVE-free image.
 
-If you do this in a Group check with someone sitting next to you the results and discuss the differences between latest and latest-dev Images from Chainguard. If you do this workshop remotely feel free to go off mute or ask in the Chat.
+#### 🧾 Prepare for Comparison
 
-Now let's do the same scan for the public python image.
+Before scanning, open a notes file or text editor where you can record the results.
+You’ll use these later to compare the findings between Chainguard and public images.
+
+**🚀 Try It Yourself**
+
+Scan both of your Chainguard Images first:
+```
+grype cgr.dev/${organization}/python:latest
+```
+```
+grype cgr.dev/${organization}/python:latest-dev
+```
+If you’re doing this in a group, pair up with the person next to you and compare results:
+- Which image had more packages?
+- Did either show vulnerabilities?
+- What do you think explains the difference?
+
+If you’re remote, share your findings in the chat or unmute to discuss!
+
+**🌍 Scan the Public Image**
+
+Now, let’s see how the public Python image compares:
 ```
 grype python:latest
 ```
-Now in your Group create a plan on how to analyze and fix the vulnerabilitites shown to you...
-...
-...
-Just kidding :D Let's not do this, we would not finish this Workshop anywhere soon :D
+You’ll likely notice a big difference in the number of detected vulnerabilities —
+this highlights how Chainguard Images dramatically reduce your security workload.
+
+**😄 Bonus Interaction**
+Once results are in plan with the one to your right on how to fix them
+
+Just kidding 😅 — we’d be here all week!
 
 ### Trivy
 Trivy will provide a pretty similar summary just in a different design. BUT Trivy does not report any Vulnerabilities where there is no fix available - concerning? Yes!
@@ -217,7 +252,7 @@ Report Summary
 ┌──────────────────────────────────────────────────────────────────────┬────────────┬─────────────────┬─────────┐
 │                             Target                                   │    Type    │ Vulnerabilities │ Secrets │
 ├──────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
-│ cgr.dev/emea-chainguard-workshop/python:latest (chainguard 20230214) │ chainguard │        0        │    -    │
+│ cgr.dev/${organization}/python:latest (chainguard 20230214)          │ chainguard │        0        │    -    │
 └──────────────────────────────────────────────────────────────────────┴────────────┴─────────────────┴─────────┘
 Legend:
 - '-': Not scanned
@@ -330,7 +365,7 @@ In this folder you will find a classic dockerfile which pulls and builds a Pytho
 Analyze the Dockerfile and if you fully understood what is happening move on and run the following command.
 
 ```
-dfc dockerfile --org emea-chainguard-workshop >> dockerfile.cgr
+dfc dockerfile --org ${organization} >> dockerfile.cgr
 ```
 Now spend some time to see what happend to your Dockerfile and what pieces of the File got changed. Share in your Group the Number of changes dfc has performed.
 

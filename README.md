@@ -133,15 +133,44 @@ To compare Chainguard Images to public alternatives, also pull the public Python
 docker pull python:latest
 ```
 
-## Security Scanner
-At Chainguard we use plenty of Security Scanners and two we love the most - Grype and Trivy. Both Scanners do an outstanding job finding vulnerabilities. So go ahead let's scan the Images we have.
-### How Scanners work
-Security scanners like Grype, Trivy and others are tools designed to detect vulnerabilities (CVEs) in software environments such as container images, filesystems, and source code repositories. They typically perform the following activities:
+## 🔍 Security Scanning with Grype and Trivy
 
-- Dependency Mapping: Both scanners analyze the software components included in a container image or filesystem. They identify both direct and transitive dependencies—meaning, not just what you’ve added, but also libraries your dependencies rely on. 
-- SBOM Ingestion: Scanners can ingest Software Bills of Materials (SBOMs), giving comprehensive visibility into every package included in the artifact. This improves accuracy and coverage when scanning, as SBOMs provide detailed lists of all components. 
-- Vulnerability Checking: Once dependencies are identified, the scanners compare those package versions against multiple vulnerability databases (like the NVD, vendor advisories, and others including Wolfi SecDB for Grype). If a dependency's version matches a known vulnerable version, the scanner flags it. 
-- Reporting & Remediation: The scanner's output lists all detected CVEs, severity ratings, and (where possible) recommends available updates or patches. They offer different output formats for developer tooling and CI/CD integration, making it easy to include in automated pipelines.
+At Chainguard, we rely on several vulnerability scanners to verify image integrity — and two of our favorites are Grype and Trivy.
+Both tools do an excellent job of detecting and reporting vulnerabilities (CVEs) in container images.
+
+### ⚙️ How Security Scanners Work
+
+Security scanners like Grype and Trivy analyze container images, filesystems, or source code repositories to uncover known vulnerabilities. Here’s what happens behind the scenes:
+
+**1️⃣ Dependency Mapping**
+
+The scanner inspects the image to identify all installed software components and their versions — not only the direct dependencies you added, but also transitive dependencies (libraries that your libraries depend on).
+
+**2️⃣ SBOM Ingestion**
+
+Scanners can read Software Bills of Materials (SBOMs) to understand exactly what’s inside your image.
+SBOMs provide a detailed inventory of packages, improving scan accuracy and transparency.
+
+**3️⃣ Vulnerability Matching**
+
+Each dependency version is compared against multiple vulnerability databases — such as:
+- The National Vulnerability Database (NVD)
+- Vendor advisories
+- And the Wolfi SecDB (for Grype)
+
+If a package matches a known vulnerable version, the scanner flags it as a finding.
+
+**4️⃣ Reporting & Remediation**
+
+The results include:
+- A list of detected CVEs
+- Severity ratings (Low, Medium, High, Critical)
+- Possible fixes or recommended versions
+
+Both Grype and Trivy support various output formats (table, JSON, SARIF), making them ideal for both manual review and CI/CD integration.
+
+🧠 Interaction Tip
+Ask the person to your right hand side *“Who here has integrated vulnerability scanning into their CI pipeline already? What tools or challenges have you seen?”*
 
 ### Grype
 Using Grype is easy and straight forward. To scan an image you run ```grype image:tag``` and it will do it's making. The Results of Grype are easy to understand and will look similar to this.

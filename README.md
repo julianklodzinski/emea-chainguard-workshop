@@ -277,7 +277,7 @@ Legend:
 Looks great, right?
 But here’s the catch…
 
-#### ⚠️ Important Insight**
+#### ⚠️ Important Insight
 
 Trivy only reports vulnerabilities when a fix is available. That means if a vulnerability exists but no patch or updated version is currently published, Trivy will not display it.
 

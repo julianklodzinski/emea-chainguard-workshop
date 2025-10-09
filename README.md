@@ -1,48 +1,93 @@
-# Chainguard Images Hands-on Workshop
-The top arguments why you might want to look into Chainguard Images and this workshop.
-- We want minimal and CVE free images
-- We spend to much time checking CVEs
-- We have customers requiring CVE free images
-- We have to meet certain compliance targets
+# 🔹 Why Join This Workshop
+In this session, you’ll learn how to use Chainguard Images — secure, minimal, and continuously verified container images — in a practical, hands-on way.
+## Common Challenges We’ll Address
+If any of these sound familiar, this workshop is for you:
+- “We want minimal and CVE-free images.”
+Bloated base images increase your attack surface and maintenance burden.
+- “We spend too much time chasing CVEs.”
+Learn how automated rebuilds and trusted provenance reduce that overhead.
+- “Our customers require CVE-free software.”
+Chainguard Images make it easier to prove compliance and deliver secure builds.
+- “We need to meet compliance targets.”
+See how Chainguard’s signed, verifiable images align with frameworks like SOC 2, FedRAMP, and ISO 27001.
 
-# 1. Workshop Account Access
-At the beginning of the Workshop we will share an invite Link with you to obtain access to your own Workshop Organization in Chainguard.
+# ⚙️ Prework
 
-# 2. Workshop Preparations
-In order to follow along the Workshop please make sure you have the following tools installed.
- - [Chainctl](https://edu.chainguard.dev/chainguard/chainctl-usage/how-to-install-chainctl/)
- - Docker - please choose a version and vendor of your choice
- - [Grype](https://github.com/anchore/grype?tab=readme-ov-file#installation)
- - [Trivy](https://trivy.dev/latest/getting-started/installation/)
- - [jq](https://jqlang.org/download/)
- - [yq](https://github.com/mikefarah/yq?tab=readme-ov-file#install)
- - [cosign](https://docs.sigstore.dev/cosign/system_config/installation/)
- - [dfc](https://github.com/chainguard-dev/dfc)
+Before joining the workshop, please make sure your environment is ready. This ensures you can fully participate in the hands-on exercises without interruptions.
 
-# 3. Workshop Content
-The Workshop will start with a short Introduction about Chainguard followed by Demo of the final Workshop for you. After that you can start working.
+## 🧰 Required Tooling
+You’ll need the following tools installed and accessible from your terminal.
+Follow the links for installation instructions:
+| Tool         | Purpose                                            | Installation Link                                                                                   |
+| ------------ | -------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| **Chainctl** | CLI to interact with Chainguard services           | [Install Chainctl →](https://edu.chainguard.dev/chainguard/chainctl-usage/how-to-install-chainctl/) |
+| **Docker**   | Container runtime (any vendor/version is fine)     | [Docker Installation →](https://docs.docker.com/get-docker/)                                        |
+| **Grype**    | Image vulnerability scanner                        | [Install Grype →](https://github.com/anchore/grype?tab=readme-ov-file#installation)                 |
+| **Trivy**    | Image vulnerability and misconfiguration scanner   | [Install Trivy →](https://trivy.dev/latest/getting-started/installation/)                           |
+| **jq**       | JSON processor                                     | [Install jq →](https://jqlang.org/download/)                                                        |
+| **yq**       | YAML processor                                     | [Install yq →](https://github.com/mikefarah/yq?tab=readme-ov-file#install)                          |
+| **cosign**   | Tool for signing and verifying container artifacts | [Install cosign →](https://docs.sigstore.dev/cosign/system_config/installation/)                    |
+| **dfc**      | Diff and compare tool for Chainguard images        | [Install dfc →](https://github.com/chainguard-dev/dfc)                                              |
 
-## Chainctl
-If you have not installed the chainctl yet [follow our documentation here and install it](https://edu.chainguard.dev/chainguard/chainctl-usage/how-to-install-chainctl/). After you have installed the Chainctl run the below commands to make sure you are all good to go.
+✅ Quick Check:
+Run the following command to verify your setup:
+```
+chainctl version && docker version && grype version && trivy --version && jq --version && yq --version && cosign version && dfc version
+```
+All tools should return a version string.
 
-1. First connect your Chainctl with your Account
+## 🌐 Network Access
+Make sure your system can reach the following endpoints, as they are required for the workshop labs:
+- cgr.dev
+- console.chainguard.dev
+- data.chainguard.dev
+- console-api.enforce.dev
+- enforce.dev
+- dl.enforce.dev
+- issuer.enforce.dev
+- apk.cgr.dev
+- virtualapk.cgr.dev
+- packages.cgr.dev
+- packages.wolfi.dev
+
+# 🧭 Workshop Step-by-Step Guide
+The workshop begins with a short introduction to Chainguard and a demo of the final outcome so you can see what you’ll build.
+After that, it’s your turn — you’ll get hands-on with your own Chainguard environment.
+
+## 👥 Workshop Account Access
+At the start of the session, you’ll receive an invite link granting access to your dedicated Workshop Organization in Chainguard.
+Once you’ve accepted the invitation, you’ll be ready to authenticate using chainctl.
+
+💡 Tip for facilitators:
+Pause here for a moment to ensure everyone has successfully joined their organization before continuing. A quick thumbs-up check (or “✅ in chat”) helps keep the group aligned.
+
+## 🔗 Check and Set Up chainctl
+If you haven’t installed chainctl yet, please [follow our installation guide](https://edu.chainguard.dev/chainguard/chainctl-usage/how-to-install-chainctl/) first.
+
+1. 1️⃣ Log in to your account
+Authenticate and link your local CLI with your Chainguard credentials:
 ```
 chainctl auth login
 ```
-2. You can check the Status and some additional information
+You’ll be redirected to a browser window to complete authentication.
+2. 2️⃣ Verify your authentication status
+Check that you’re logged in and view details about your current session:
 ```
 chainctl auth status
 ```
-3. In case updates are available run the following command - chainctl will let you know anyways
+3. 3️⃣ Update chainctl (optional but recommended)
+If updates are available, chainctl will prompt you automatically.
+You can also check manually:
 ```
 chainctl update
 ```
-4. To connect your Docker and Chainguard Image Catalog run the below
+4. 4️⃣ Configure Docker authentication
+This connects your local Docker client to the Chainguard Image Catalog, allowing you to pull and use Chainguard Images:
 ```
 chainctl auth configure-docker
 ```
 
-If configure-docker does not work for you [check out our pull tokens](https://edu.chainguard.dev/chainguard/chainguard-images/chainguard-registry/authenticating/#managing-pull-tokens-in-the-chainguard-console)
+If you encounter issues with this step, you can also use [pull tokens instead](https://edu.chainguard.dev/chainguard/chainguard-images/chainguard-registry/authenticating/#managing-pull-tokens-in-the-chainguard-console).
 
 ## Chainguard Images
 Let's get you setup with the Images you need for the Workshop today. Execute the below commands in your favorite Terminal.

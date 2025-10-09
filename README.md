@@ -255,7 +255,7 @@ It performs a similar analysis to Grype but presents results in a different form
 
 Use the following command format: ```trivy image image:tag```
 
-For example: ```trivy cgr.dev/${organization}/python:latest```
+For example: ```trivy image cgr.dev/${organization}/python:latest```
 
 Trivy will scan your image, compare package versions against known CVE databases, and produce a summary report.
 

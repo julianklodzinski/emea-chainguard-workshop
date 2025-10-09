@@ -240,6 +240,7 @@ You’ll likely notice a big difference in the number of detected vulnerabilitie
 this highlights how Chainguard Images dramatically reduce your security workload.
 
 **😄 Bonus Interaction**
+
 Once results are in plan with the one to your right on how to fix them
 
 Just kidding 😅 — we’d be here all week!

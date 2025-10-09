@@ -97,21 +97,27 @@ Now that your environment and access are ready, let’s pull the images you’ll
 Chainguard Images are stored in your organization’s private registry on cgr.dev.
 
 ### 🔹 Pulling Chainguard Images
-To pull an image from Chainguard, use the following command format: ```docker pull cgr.dev/{{organization}}/{{image}}:{{tag}}```
+To pull an image from Chainguard, use the following command format: 
+
+```docker pull cgr.dev/{{organization}}/{{image}}:{{tag}}```
+
 - organization → your workshop organization name (e.g., mycompany.de or secureteam.uk)
 - image → the image name (e.g., python)
 - tag → the tag version (e.g., latest, latest-dev)
 You can find your organization name in the top-left corner of the Chainguard Console — it usually matches your company name and ends with a region code like .de or .uk.
 
-💡 Simplify Your Commands
+#### 💡 Simplify Your Commands
 
-To make your workflow smoother, set your organization as an environment variable in your current shell: ```export organization=yourOrgName```
+To make your workflow smoother, set your organization as an environment variable in your current shell: 
+
+```export organization=yourOrgName```
+
 Now you can use that variable in your pull commands without retyping it each time.
 
 ⚠️ Note:
 Environment variables are temporary — if you close your terminal or open a new shell, you’ll need to re-export this variable.
 
-📦 Pull Your Workshop Images
+#### 📦 Pull Your Workshop Images
 Now, let’s fetch the two main images we’ll be using:
 ```
 docker pull cgr.dev/${organization}/python:latest-dev
@@ -121,7 +127,7 @@ docker pull cgr.dev/${organization}/python:latest
 ```
 Once complete, you’ll have both the -dev (containing Shell and Package Manager) and minimal version without it available locally.
 
-### 🌍 Get the Public Version Too
+#### 🌍 Get the Public Version Too
 To compare Chainguard Images to public alternatives, also pull the public Python image:
 ```
 docker pull python:latest

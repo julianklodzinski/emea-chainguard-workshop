@@ -64,24 +64,27 @@ Pause here for a moment to ensure everyone has successfully joined their organiz
 ## 🔗 Check and Set Up chainctl
 If you haven’t installed chainctl yet, please [follow our installation guide](https://edu.chainguard.dev/chainguard/chainctl-usage/how-to-install-chainctl/) first.
 
-1. 1️⃣ Log in to your account
+1️⃣ Log in to your account
 Authenticate and link your local CLI with your Chainguard credentials:
 ```
 chainctl auth login
 ```
 You’ll be redirected to a browser window to complete authentication.
-2. 2️⃣ Verify your authentication status
+
+2️⃣ Verify your authentication status
 Check that you’re logged in and view details about your current session:
 ```
 chainctl auth status
 ```
-3. 3️⃣ Update chainctl (optional but recommended)
+
+3️⃣ Update chainctl (optional but recommended)
 If updates are available, chainctl will prompt you automatically.
 You can also check manually:
 ```
 chainctl update
 ```
-4. 4️⃣ Configure Docker authentication
+
+4️⃣ Configure Docker authentication
 This connects your local Docker client to the Chainguard Image Catalog, allowing you to pull and use Chainguard Images:
 ```
 chainctl auth configure-docker

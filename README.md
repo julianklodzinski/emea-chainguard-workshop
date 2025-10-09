@@ -92,23 +92,41 @@ chainctl auth configure-docker
 
 If you encounter issues with this step, you can also use [pull tokens instead](https://edu.chainguard.dev/chainguard/chainguard-images/chainguard-registry/authenticating/#managing-pull-tokens-in-the-chainguard-console).
 
-## Chainguard Images
-Let's get you setup with the Images you need for the Workshop today. Execute the below commands in your favorite Terminal.
+## Working with Chainguard Images
+Now that your environment and access are ready, let’s pull the images you’ll use in today’s workshop.
+Chainguard Images are stored in your organization’s private registry on cgr.dev.
 
-```
-docker pull cgr.dev/emea-chainguard-workshop/python:latest
-```
-```
-docker pull cgr.dev/emea-chainguard-workshop/python:latest-dev
-```
+### 🔹 Pulling Chainguard Images
+To pull an image from Chainguard, use the following command format: ```docker pull cgr.dev/{{organization}}/{{image}}:{{tag}}```
+- organization → your workshop organization name (e.g., mycompany.de or secureteam.uk)
+- image → the image name (e.g., python)
+- tag → the tag version (e.g., latest, latest-dev)
+You can find your organization name in the top-left corner of the Chainguard Console — it usually matches your company name and ends with a region code like .de or .uk.
 
-You have now all Chainguard Images - let's get the public version as well :)
+💡 Simplify Your Commands
 
-## Public Images
-Run the following command to get the official public python image. Feel free to change the tag to your choice if you want to compare our Images to something else.
+To make your workflow smoother, set your organization as an environment variable in your current shell: ```export organization=yourOrgName```
+Now you can use that variable in your pull commands without retyping it each time.
+
+⚠️ Note:
+Environment variables are temporary — if you close your terminal or open a new shell, you’ll need to re-export this variable.
+
+📦 Pull Your Workshop Images
+Now, let’s fetch the two main images we’ll be using:
+```
+docker pull cgr.dev/${organization}/python:latest-dev
+```
+```
+docker pull cgr.dev/${organization}/python:latest
+```
+Once complete, you’ll have both the -dev (containing Shell and Package Manager) and minimal version without it available locally.
+
+### 🌍 Get the Public Version Too
+To compare Chainguard Images to public alternatives, also pull the public Python image:
 ```
 docker pull python:latest
 ```
+
 ## Security Scanner
 At Chainguard we use plenty of Security Scanners and two we love the most - Grype and Trivy. Both Scanners do an outstanding job finding vulnerabilities. So go ahead let's scan the Images we have.
 ### How Scanners work

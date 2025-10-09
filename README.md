@@ -284,25 +284,42 @@ Trivy only reports vulnerabilities when a fix is available. That means if a vuln
 This can be concerning if you’re relying on a single tool for complete visibility.
 Different scanners use different data sources, and their reporting logic can vary — so it’s always best to compare results.
 
-You don't believe us? Go ahead and scan public images with CVEs and compare the results.
+You don't believe us? Go ahead and scan a public image with Grype and Trivy and check for differences.
 
-### How to trick Scanners
-If you think you can't trick a Scanner to believe there is no CVE you are dead wrong. As you already saw in the Trivy vs. Grype scan there is no standard on how Scanners analyze an image and if you know how they do it it's faily easy to trick them by:
+### ⚠️ Scanner Limitations — Why one scanner is not enough
 
-- Omitting Vulnerable Packages from SBOMs: If a SBOM is manually created or edited to exclude packages known to be vulnerable, the scanner won't see or report those 
-vulnerabilities. This hides risks from the scan results.
+```Important: We will not demonstrate methods to hide vulnerabilities. Instead we’ll discuss, at a high level, why scanners can miss things and how to design defenses so those gaps don’t matter.```
 
-- Falsifying Package Versions in Metadata: Changing version numbers in SBOMs or metadata to ones perceived as safe (even if the actual software is outdated or vulnerable) can prevent scanners from flagging CVEs. Scanners match version numbers to vulnerability databases, so supplying incorrect data misleads them.
+High-level reasons scanners can miss issues
 
-- Renaming or Repackaging Components: Packaging a vulnerable library under a different name, or with custom metadata fields, can prevent scanners from properly identifying the component and its vulnerabilities.
+- Scanners are very useful but have inherent limits — understanding those limits helps you build defenses:
+- Visibility gaps: If the scanner doesn’t see an artifact (or the artifact metadata/SBOM is incomplete), it can’t flag what it can’t observe.
+- Data/source differences: Scanners rely on vulnerability feeds and matching heuristics. Different tools consult different databases and use different heuristics, so results can differ.
+- Metadata trust: Scanners often rely on manifest/SBOM metadata. If that metadata is inaccurate or manipulated, scan outputs can be misleading.
+- Transitive dependencies: Vulnerabilities in indirectly included libraries (transitive deps) can be overlooked if the tooling doesn’t fully enumerate them.
+- Fix availability logic: Some scanners show only vulnerabilities for which fixes exist; others show all known CVEs. This policy difference changes what you see.
 
-- Using Untracked or Private Packages: Including dependencies that aren’t published in common databases (NVD, upstream advisories, etc.), or modifying open source codebases to diverge significantly from tracked versions, can keep real vulnerabilities hidden from scanners.
+#### Defensive takeaway
 
-- Suppressing Transitive Dependencies: Many vulnerabilities come from libraries that are included indirectly (transitive dependencies). Not listing these in SBOMs or metadata, or using tools that don’t detect them, limits what a scanner can find.
+Because of these limits, don’t trust a single scan result by itself. Build defense in depth: multiple scanners, verified SBOMs, provenance/signatures, reproducible builds, and attestation.
 
-- Manipulating Build Metadata: Changing how certain packages are recorded in build manifests or image labels can cause scanners to overlook them or misinterpret their version/status.
+**🔧 Concrete defensive checklist for teams** 
 
-That is why the SLSA Framework is in place and you should only trust sources which can verify that nothing of this happend - like Chainguard.
+Use this checklist to harden image pipelines and detect tampering:
+
+☑️ Run multiple scanners (different feeds/heuristics) and compare outputs
+
+☑️ Require and verify SBOMs for every published image; ensure SBOM generation is part of CI
+
+☑️ Sign images and attestations; verify signatures in downstream environments (e.g., using cosign)
+
+☑️ Enforce reproducible builds and retain build artifacts and attestations
+
+☑️ Adopt a provenance/attestation standard such as SLSA — require authenticated, auditable build inputs
+
+☑️ Include SBOM and provenance verification as gate checks in CI/CD
+
+☑️ Monitor for unexpected packages or package counts in images (automated guardrails)
 
 ## Provenance - Verify Container Images from Chainguard
 Container image provenance verification is the process of confirming that a container image originates from a trusted source and is built exactly as claimed. This is crucial for ensuring software supply chain integrity and defending against tampering or hidden vulnerabilities.

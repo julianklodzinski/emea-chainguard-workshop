@@ -245,23 +245,46 @@ Once results are in plan with the one to your right on how to fix them
 
 Just kidding 😅 — we’d be here all week!
 
-### Trivy
-Trivy will provide a pretty similar summary just in a different design. BUT Trivy does not report any Vulnerabilities where there is no fix available - concerning? Yes!
-```
-Report Summary
 
+### 🧰 Scanning with Trivy
+
+Trivy is another excellent vulnerability scanner — simple, fast, and widely used in DevOps pipelines.
+It performs a similar analysis to Grype but presents results in a different format and uses a slightly different vulnerability database.
+
+#### 🔹 Running a Trivy Scan
+
+Use the following command format: ```trivy image image:tag```
+
+For example: ```trivy cgr.dev/${organization}/python:latest```
+
+Trivy will scan your image, compare package versions against known CVE databases, and produce a summary report.
+
+**📊 Example Output**
+
+Here’s what the output might look like for a clean Chainguard Image:
+
+**Report Summary**
+```
 ┌──────────────────────────────────────────────────────────────────────┬────────────┬─────────────────┬─────────┐
 │                             Target                                   │    Type    │ Vulnerabilities │ Secrets │
 ├──────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
 │ cgr.dev/${organization}/python:latest (chainguard 20230214)          │ chainguard │        0        │    -    │
 └──────────────────────────────────────────────────────────────────────┴────────────┴─────────────────┴─────────┘
 Legend:
-- '-': Not scanned
+- '-': Not scanned  
 - '0': Clean (no security findings detected)
 ```
+Looks great, right?
+But here’s the catch…
 
-### Learnings
-One Scanner is not enough! And that's why you need to build from source.
+#### ⚠️ Important Insight**
+
+Trivy only reports vulnerabilities when a fix is available. That means if a vulnerability exists but no patch or updated version is currently published, Trivy will not display it.
+
+This can be concerning if you’re relying on a single tool for complete visibility.
+Different scanners use different data sources, and their reporting logic can vary — so it’s always best to compare results.
+
+You don't believe us? Go ahead and scan public images with CVEs and compare the results.
 
 ### How to trick Scanners
 If you think you can't trick a Scanner to believe there is no CVE you are dead wrong. As you already saw in the Trivy vs. Grype scan there is no standard on how Scanners analyze an image and if you know how they do it it's faily easy to trick them by:

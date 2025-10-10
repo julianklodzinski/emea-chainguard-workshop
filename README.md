@@ -368,26 +368,33 @@ cosign verify \
   cgr.dev/{{ORGANIZATION}}/{{IMAGE}}:{{TAG}} | jq
 
 ```
+
 Since we sign at build time every ID is slightly differently. So let's get you started.
+
 ```
 IMAGE=python
 ```
+
 ```
 TAG=latest
 ```
+
 ```
 CATALOG_SYNCER=$(chainctl iam account-associations describe $ORGANIZATION -o json | jq -r '.[].chainguard.service_bindings.CATALOG_SYNCER')
 ```
+
 ```
 APKO_BUILDER=$(chainctl iam account-associations describe $ORGANIZATION -o json | jq -r '.[].chainguard.service_bindings.APKO_BUILDER')
 ```
+
 cosign verify \
   --certificate-oidc-issuer=https://issuer.enforce.dev \
-  --certificate-identity-regexp="https://issuer.enforce.dev/(${CATALOG_SYNCER}|${APKO_BUILDER})" \
+  --certificate-identity-regexp="https://issuer.enforce.dev/($CATALOG_SYNCER|$APKO_BUILDER)" \
   cgr.dev/$ORGANIZATION/$IMAGE:$TAG | jq
 ```
 
 ### Downloading Python Image Attestations
+
 To download an attestation, use the cosign download attestation command and provide both the predicate type and the build platform. For example, the following command will obtain the SBOM for the python image on linux/amd64:
 ```
 cosign download attestation \
@@ -402,7 +409,7 @@ You can use the cosign verify-attestation command to check the signatures of the
 cosign verify-attestation \
   --type https://spdx.dev/Document \
   --certificate-oidc-issuer=https://issuer.enforce.dev \
-  --certificate-identity-regexp="https://issuer.enforce.dev/(${CATALOG_SYNCER}|${APKO_BUILDER})" \
+  --certificate-identity-regexp="https://issuer.enforce.dev/($CATALOG_SYNCER|$APKO_BUILDER)" \
   cgr.dev/$ORGANIZATION/$IMAGE:$TAG
 ```
 

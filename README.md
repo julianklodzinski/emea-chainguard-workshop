@@ -368,25 +368,21 @@ cosign verify \
   cgr.dev/{{ORGANIZATION}}/{{IMAGE}}:{{TAG}} | jq
 
 ```
-
 Since we sign at build time every ID is slightly differently. So let's get you started.
 
 ```
 IMAGE=python
 ```
-
 ```
 TAG=latest
 ```
-
 ```
 CATALOG_SYNCER=$(chainctl iam account-associations describe $ORGANIZATION -o json | jq -r '.[].chainguard.service_bindings.CATALOG_SYNCER')
 ```
-
 ```
 APKO_BUILDER=$(chainctl iam account-associations describe $ORGANIZATION -o json | jq -r '.[].chainguard.service_bindings.APKO_BUILDER')
 ```
-
+```
 cosign verify \
   --certificate-oidc-issuer=https://issuer.enforce.dev \
   --certificate-identity-regexp="https://issuer.enforce.dev/($CATALOG_SYNCER|$APKO_BUILDER)" \

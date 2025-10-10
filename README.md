@@ -58,9 +58,6 @@ After that, it’s your turn — you’ll get hands-on with your own Chainguard 
 At the start of the session, you’ll receive an invite link granting access to your dedicated Workshop Organization in Chainguard.
 Once you’ve accepted the invitation, you’ll be ready to authenticate using chainctl.
 
-💡 Tip for facilitators:
-Pause here for a moment to ensure everyone has successfully joined their organization before continuing. A quick thumbs-up check (or “✅ in chat”) helps keep the group aligned.
-
 ## 🔗 Check and Set Up chainctl
 If you haven’t installed chainctl yet, please [follow our installation guide](https://edu.chainguard.dev/chainguard/chainctl-usage/how-to-install-chainctl/) first.
 

@@ -359,8 +359,15 @@ jq
 
 ✅ Both tools were part of your prework checklist — if not yet installed, please do so now.
 
-### Verifying python Image Signatures
-All Chainguard Images are getting signed via Sigstore Cosign at build time. The cosign verify command will pull detailed information about all signatures found for the provided image and looks similiar to the command below.
+### Verifying Python Image Signatures
+
+Every Chainguard Image is digitally signed at build time using Sigstore Cosign. This signature ensures that the image was built by a trusted Chainguard system and hasn’t been modified since.
+
+To verify the signature, we’ll use the ```cosign verify``` command. It retrieves and validates the digital signatures associated with an image.
+
+**🔹 Command Overview**
+
+Here’s the general syntax for verifying a Chainguard image signature:
 ```
 cosign verify \
   --certificate-oidc-issuer=https://issuer.enforce.dev \
@@ -368,30 +375,50 @@ cosign verify \
   cgr.dev/{{ORGANIZATION}}/{{IMAGE}}:{{TAG}} | jq
 
 ```
-Since we sign at build time every ID is slightly differently. So let's get you started.
+This command tells Cosign to:
+
+- Validate the signature issuer (issuer.enforce.dev),
+- Match the identity used during signing (CATALOG_SYNCER or APKO_BUILDER),
+- And output the full verification result in JSON via jq.
+
+**🧰 Prepare Your Variables**
+
+Set up your environment variables first — this will make subsequent commands simpler:
 
 ```
 IMAGE=python
-```
-```
 TAG=latest
 ```
+Next, retrieve the Chainguard signing identities associated with your organization:
+
 ```
 CATALOG_SYNCER=$(chainctl iam account-associations describe $ORGANIZATION -o json | jq -r '.[].chainguard.service_bindings.CATALOG_SYNCER')
-```
-```
 APKO_BUILDER=$(chainctl iam account-associations describe $ORGANIZATION -o json | jq -r '.[].chainguard.service_bindings.APKO_BUILDER')
 ```
+
+✅ Verify the Image Signature
+
+Now run the verification:
 ```
 cosign verify \
   --certificate-oidc-issuer=https://issuer.enforce.dev \
   --certificate-identity-regexp="https://issuer.enforce.dev/($CATALOG_SYNCER|$APKO_BUILDER)" \
   cgr.dev/$ORGANIZATION/$IMAGE:$TAG | jq
 ```
+If successful, Cosign will confirm that:
 
-### Downloading Python Image Attestations
+- The image was built by Chainguard, and
+- Has not been tampered with since signing.
 
-To download an attestation, use the cosign download attestation command and provide both the predicate type and the build platform. For example, the following command will obtain the SBOM for the python image on linux/amd64:
+You’ll see output showing valid certificates, identities, and timestamps — proof of authenticity.
+
+### 📥 Downloading Python Image Attestations
+
+Every Chainguard Image includes attestations — cryptographically signed statements describing how and what was built.
+One key attestation is the SBOM (Software Bill of Materials), detailing every component in the image.
+
+To download the SBOM attestation for the Python image (on linux/amd64):
+
 ```
 cosign download attestation \
   --platform=linux/amd64 \
@@ -399,8 +426,16 @@ cosign download attestation \
   cgr.dev/$ORGANIZATION/$IMAGE:$TAG | jq -r .payload | base64 -d | jq .predicate
 ```
 
-### Verifying python Image Attestations
-You can use the cosign verify-attestation command to check the signatures of the python image attestations:
+This command:
+
+- Fetches the attestation from the registry,
+- Decodes it, and
+- Displays the SBOM contents in a readable JSON format.
+
+### 🧾 Verifying Image Attestations
+
+Finally, verify that the attestation itself is signed and trusted:
+
 ```
 cosign verify-attestation \
   --type https://spdx.dev/Document \
@@ -408,10 +443,20 @@ cosign verify-attestation \
   --certificate-identity-regexp="https://issuer.enforce.dev/($CATALOG_SYNCER|$APKO_BUILDER)" \
   cgr.dev/$ORGANIZATION/$IMAGE:$TAG
 ```
+This confirms:
+- The SBOM (and other metadata) is authentic,
+- It came directly from Chainguard’s build systems, and
+- It hasn’t been modified in transit.
 
-Now you have verified that the Image you just downloaded was coming from us and was not changed on the way to you. In other words the Question "Can I trust this image actually comes from Chainguard and hasn’t been changed or tampered with?" you can answer with "Yes" now.
+**🧠 What You’ve Just Proven**
 
-Try to verify the public Python image as well and discuss in the room how you would do it.
+You can now confidently answer the question:
+
+“Can I trust that this image actually comes from Chainguard and hasn’t been tampered with?”
+
+**✅ Yes — you can.**
+
+You’ve verified both the signature and the provenance attestation, proving authenticity and integrity end-to-end.
 
 ## Build and Test Chainguard Python Image
 Now you might wonder, wait, no CVEs, a lot smaller, there is something wrong... these images can't work! You are wrong, but let's find out together and build a simple Python App together.

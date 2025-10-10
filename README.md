@@ -514,7 +514,7 @@ and of course run it and see what happens
 ```
 docker run --rm linky
 ```
-**🤩Bonus**
+**🤩 Bonus**
 - Scan your build image with Grype and Trivy
 - What ends up in the final image, and what’s left behind in the builder?
 - How would you gate this image in CI (scan, SBOM, provenance verify)?
@@ -530,6 +530,7 @@ docker run --rm linky
 Migrating existing Dockerfiles to Chainguard can be fast with the Dockerfile Converter (dfc). You’ll use it to transform a classic Python image build into a Chainguard-friendly one
 
 **Go to the dfc example folder**
+
 ```
 cd examples/dfc 
 ```
@@ -557,12 +558,14 @@ docker run -it --rm --entrypoint /bin/sh cgr.dev/chainguard/wolfi-base
 This drops you into a shell inside the container.
 
 **🔄 Update the package index**
+
 ```
 apk update
 ```
 This fetches the latest package list from Wolfi’s repositories.
 
 **🔎 Search for packages**
+
 For example, to search for PHP 8.2 XML-related packages:
 ```
 apk search php*8.2*xml*
@@ -585,6 +588,7 @@ php-xmlwriter-8.2.11-r1
 🧠 Tip: Use wildcards (*) to match patterns, versions, or submodules.
 
 **🧭 Search by command**
+
 You can also search by command name to find which package provides it:
 ```
 apk search cmd:useradd
@@ -594,6 +598,7 @@ Expected output: ```shadow-4.18.0-r5```
 This tells you the useradd command is part of the shadow package.
 
 **🧩 Inspect dependencies**
+
 To see what libraries or packages a specific package depends on:
 ```
 apk -R info shadow

@@ -650,11 +650,13 @@ contents:
   - bash
 ```
 *(You must type this manually — pasting may not work properly in some terminals.)*
+
 3. Confirm a few times until you see the Diff and get ask if you want to continue
 4. Confirm again
 
 ### 🏗️ Watch the Build Process
 Once confirmed, the new image build starts in the background.
+
 It may take a few minutes up to an hour, depending on the packages added, backend load and batch job size.
 
 ✅ Tip: You can monitor build progress in your Chainguard Console → Images → Builds tab.

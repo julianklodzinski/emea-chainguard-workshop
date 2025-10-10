@@ -614,4 +614,65 @@ so:libcrypt.so.1
 so:libpam.so.0
 so:libpam_misc.so.0
 ```
-## Thank you :)
+## 🧱 Custom Assembly — Build Your Own "Golden Image"
+So far, you’ve explored, verified, and tested Chainguard Images.
+Now let’s go one step further — what if you want to create your own “Golden Image”, preloaded with your preferred tools, signed, and published in your Chainguard Catalog, complete with provenance and SBOMs?
+
+That’s exactly what Custom Assembly does.
+
+### 🧩 What is Custom Assembly?
+Custom Assembly allows you to:
+- Clone an existing Chainguard image (like python),
+- Add or remove packages, and
+- Publish it as a new, verifiable image with Chainguard’s provenance and SBOM automatically attached.
+
+You can do this via the CLI (chainctl) or directly in the Chainguard Console UI.
+
+### 🧰 CLI Walkthrough — Create Your Own Custom Python Image
+Let’s create a personalized Python image that includes a couple of extra utilities. Run the below commands to set everything up. Make sure you provide in Step 1 your name!
+
+1. Run: ```NAME=ENTER_YOUR_FIRST_NAME_HERE```
+2. Run: ```NEW_IMAGE_NAME=python-$NAME```
+3. Run: ```chainctl image repo build edit --parent $ORGANIZATION --repo $IMAGE --save-as $NEW_IMAGE_NAME```
+This command:
+- Opens an interactive YAML editor in your shell,
+- Starts from the original image definition, and
+- Lets you modify the image contents before saving.
+
+**✍️ Edit Your Image Definition**
+When the YAML opens, follow these steps carefully:
+1. Remove the brackets {}
+2. Add the following to the file:
+```
+contents:
+  packages:
+  - curl
+  - bash
+```
+*(You must type this manually — pasting may not work properly in some terminals.)*
+3. Confirm a few times until you see the Diff and get ask if you want to continue
+4. Confirm again
+
+### 🏗️ Watch the Build Process
+Once confirmed, the new image build starts in the background.
+It may take a few minutes up to an hour, depending on the packages added, backend load and batch job size.
+
+✅ Tip: You can monitor build progress in your Chainguard Console → Images → Builds tab.
+
+### 🖥️ Explore Your Image in the Console
+
+While the build runs:
+1. Open the Chainguard Console.
+2. Navigate to your Python image.
+3. In the top-right corner, click Customize Image.
+4. Use the search bar to browse available packages you could add.
+*You can try these later on your new custom image — for now, keep the standard python image as-is.*
+
+**🧠 What You’ve Achieved**
+
+Created a customized, signed image based on Chainguard Python.
+- Added tools (curl and bash) to extend functionality.
+- Triggered a verified build that produces provenance and SBOMs automatically.
+- Your organization now has its own Golden Image, built securely and reproducibly — ready to use in production or as a foundation for your teams.
+
+# This is the End of the Workshop - Thank you very much for following along - We hope your enjoyed it! Thank you

@@ -3,13 +3,9 @@ In this session, you’ll learn how to use Chainguard Images — secure, minimal
 ## Common Challenges We’ll Address
 If any of these sound familiar, this workshop is for you:
 - “We want minimal and CVE-free images.”
-Bloated base images increase your attack surface and maintenance burden.
 - “We spend too much time chasing CVEs.”
-Learn how automated rebuilds and trusted provenance reduce that overhead.
 - “Our customers require CVE-free software.”
-Chainguard Images make it easier to prove compliance and deliver secure builds.
 - “We need to meet compliance targets.”
-See how Chainguard’s signed, verifiable images align with frameworks like SOC 2, FedRAMP, and ISO 27001.
 
 # ⚙️ Prework
 

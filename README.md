@@ -99,7 +99,7 @@ Chainguard Images are stored in your organization’s private registry on cgr.de
 ### 🔹 Pulling Chainguard Images
 To pull an image from Chainguard, use the following command format: 
 
-```docker pull cgr.dev/{{organization}}/{{image}}:{{tag}}```
+```docker pull cgr.dev/{{ORGANIZATION}}/{{IMAGE}}{TAGag}}```
 
 - organization → your workshop organization name (e.g., mycompany.de or secureteam.uk)
 - image → the image name (e.g., python)
@@ -110,7 +110,7 @@ You can find your organization name in the top-left corner of the Chainguard Con
 
 To make your workflow smoother, set your organization as an environment variable in your current shell: 
 
-```export organization=yourOrgName```
+```export ORGANIZATION=yourOrgName```
 
 Now you can use that variable in your pull commands without retyping it each time.
 
@@ -120,10 +120,10 @@ Environment variables are temporary — if you close your terminal or open a new
 #### 📦 Pull Your Workshop Images
 Now, let’s fetch the two main images we’ll be using:
 ```
-docker pull cgr.dev/${organization}/python:latest-dev
+docker pull cgr.dev/${ORGANIZATION}/python:latest-dev
 ```
 ```
-docker pull cgr.dev/${organization}/python:latest
+docker pull cgr.dev/${ORGANIZATION}/python:latest
 ```
 Once complete, you’ll have both the -dev (containing Shell and Package Manager) and minimal version without it available locally.
 
@@ -218,10 +218,10 @@ You’ll use these later to compare the findings between Chainguard and public i
 
 Scan both of your Chainguard Images first:
 ```
-grype cgr.dev/${organization}/python:latest
+grype cgr.dev/${ORGANIZATION}/python:latest
 ```
 ```
-grype cgr.dev/${organization}/python:latest-dev
+grype cgr.dev/${ORGANIZATION}/python:latest-dev
 ```
 If you’re doing this in a group, pair up with the person next to you and compare results:
 - Which image had more packages?
@@ -255,7 +255,7 @@ It performs a similar analysis to Grype but presents results in a different form
 
 Use the following command format: ```trivy image image:tag```
 
-For example: ```trivy image cgr.dev/${organization}/python:latest```
+For example: ```trivy image cgr.dev/${ORGANIZATION}/python:latest```
 
 Trivy will scan your image, compare package versions against known CVE databases, and produce a summary report.
 
@@ -268,7 +268,7 @@ Here’s what the output might look like for a clean Chainguard Image:
 ┌──────────────────────────────────────────────────────────────────────┬────────────┬─────────────────┬─────────┐
 │                             Target                                   │    Type    │ Vulnerabilities │ Secrets │
 ├──────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
-│ cgr.dev/${organization}/python:latest (chainguard 20230214)          │ chainguard │        0        │    -    │
+│ cgr.dev/${ORGANIZATION}/python:latest (chainguard 20230214)          │ chainguard │        0        │    -    │
 └──────────────────────────────────────────────────────────────────────┴────────────┴─────────────────┴─────────┘
 Legend:
 - '-': Not scanned  
@@ -360,21 +360,50 @@ jq
 ✅ Both tools were part of your prework checklist — if not yet installed, please do so now.
 
 ### Verifying python Image Signatures
-The python Chainguard Containers are signed using Sigstore, and you can check the included signatures using cosign. The cosign verify command will pull detailed information about all signatures found for the provided image.
+All Chainguard Images are getting signed via Sigstore Cosign at build time. The cosign verify command will pull detailed information about all signatures found for the provided image and looks similiar to the command below.
 ```
-Provide Command here as soon as Catalog is provisioned
+cosign verify \
+  --certificate-oidc-issuer=https://issuer.enforce.dev \
+  --certificate-identity-regexp="https://issuer.enforce.dev/(${CATALOG_SYNCER}|${APKO_BUILDER})" \
+  cgr.dev/{{ORGANIZATION}}/{{IMAGE}}:{{TAG}} | jq
+
+```
+Since we sign at build time every ID is slightly differently. So let's get you started.
+```
+IMAGE=python
+```
+```
+TAG=latest
+```
+```
+CATALOG_SYNCER=$(chainctl iam account-associations describe $ORGANIZATION -o json | jq -r '.[].chainguard.service_bindings.CATALOG_SYNCER')
+```
+```
+APKO_BUILDER=$(chainctl iam account-associations describe $ORGANIZATION -o json | jq -r '.[].chainguard.service_bindings.APKO_BUILDER')
+```
+cosign verify \
+  --certificate-oidc-issuer=https://issuer.enforce.dev \
+  --certificate-identity-regexp="https://issuer.enforce.dev/(${CATALOG_SYNCER}|${APKO_BUILDER})" \
+  cgr.dev/$ORGANIZATION/$IMAGE:$TAG | jq
 ```
 
 ### Downloading Python Image Attestations
 To download an attestation, use the cosign download attestation command and provide both the predicate type and the build platform. For example, the following command will obtain the SBOM for the python image on linux/amd64:
 ```
-Provide Command here as soon as Catalog is provisioned
+cosign download attestation \
+  --platform=linux/amd64 \
+  --predicate-type=https://spdx.dev/Document \
+  cgr.dev/$ORGANIZATION/$IMAGE:$TAG | jq -r .payload | base64 -d | jq .predicate
 ```
 
 ### Verifying python Image Attestations
 You can use the cosign verify-attestation command to check the signatures of the python image attestations:
 ```
-Provide Command here as soon as Catalog is provisioned
+cosign verify-attestation \
+  --type https://spdx.dev/Document \
+  --certificate-oidc-issuer=https://issuer.enforce.dev \
+  --certificate-identity-regexp="https://issuer.enforce.dev/(${CATALOG_SYNCER}|${APKO_BUILDER})" \
+  cgr.dev/$ORGANIZATION/$IMAGE:$TAG
 ```
 
 Now you have verified that the Image you just downloaded was coming from us and was not changed on the way to you. In other words the Question "Can I trust this image actually comes from Chainguard and hasn’t been changed or tampered with?" you can answer with "Yes" now.

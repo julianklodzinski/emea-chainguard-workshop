@@ -458,37 +458,55 @@ You can now confidently answer the question:
 
 You’ve verified both the signature and the provenance attestation, proving authenticity and integrity end-to-end.
 
-## Build and Test Chainguard Python Image
-Now you might wonder, wait, no CVEs, a lot smaller, there is something wrong... these images can't work! You are wrong, but let's find out together and build a simple Python App together.
+## 🧪 Build & Test a Chainguard Python Image
+“No CVEs and much smaller — surely these images can’t work?” You might think now... Well, they do.
+
+Move to the starter apps directory
 ```
 cd examples/python/starter
 ```
-Check out the Python Application. IT will print out the Operating System it runs on. The Output will look similiar to this: ```Hello Wordl! From Linux operating system on 64bit ELF architecture``` Now build your image:
+Have a look at the app.py file and what it does. It will print out the Operating System it runs on. The Output will look similiar to this: ```Hello Wordl! From Linux operating system on 64bit ELF architecture```
+
+Now build your image:
 ```
 docker build -f dockerfile -t crg-python:standard .
 ```
+
 And run it yourself with
+
 ```
 docker run -v .:/app crg-python:standard
 ```
+
 You can also change the Chainguard Image to the public Python Image if you want to spot differences in the OS.
 
 This has worked easily. But it is also a very simple example. So let's have a look at a more relalistic approach where we need to install dependencies.
 
-## Build Multi-Stage Build mit Python
+## 🏗️ Build a Multi-Stage Image with Python
+
+When your app needs to install dependencies, use a multi-stage build:
+
+Stage 1 (builder): start from a Chainguard -dev image (has shell + package manager), create a venv, and install dependencies.
+
+Stage 2 (runtime): copy only what you need into the minimal Chainguard image (no shell, tiny attack surface). 
+
 Navigate into the Folder ```multi-stage``` - depending on where you are in your Shell you might have to use a different command.
 ```
 cd examples/python/multi-stage
 ```
-Explore the linky.py Application Code and the requirements.txt file which we use to include some libraries.
+Explore the files:
+- linky.py — simple Python app
+- requirements.txt — Python dependencies
 
-Next: Pull down an Image for our Python Application. The App will show the Image in your Shell :) Pretty cool, isn't it?
+**Get the demo asset**
 ```
 curl -O https://raw.githubusercontent.com/chainguard-dev/edu-images-demos/main/python/linky/linky.png
 ```
-Go and explore your Dockerfile - especially line 1 and 15 are important as we start our build with a -dev Image, install all dependencies, and move over to a minimal image.
+The app will reference this image and show output in your terminal.
 
-Now build your Image
+**Inspect the Dockerfile**
+Key idea: start from ```python:latest-dev```, install, then switch to ```python:latest``` and copy in only what’s needed. Run the following commands to build your Application.
+
 ```
 docker build . --pull -t linky
 ```
@@ -496,40 +514,60 @@ and of course run it and see what happens
 ```
 docker run --rm linky
 ```
-As you can see, Chainguard Images do work. And Multi-Stage builds are one way of customizing them to your needs.
+**🤩Bonus**
+- Scan your build image with Grype and Trivy
+- What ends up in the final image, and what’s left behind in the builder?
+- How would you gate this image in CI (scan, SBOM, provenance verify)?
 
-## Dockerfile Converter && DFC UI (Who is this???)
-At some point in time you might wonder about the migration efforts from your current estate towards Chainguard. If you haven't yet I'm sure you will now :D
-We tried to make it as easy as possible for our users to consume Chainguard. This includes also migrations.
+**🧠 Why this matters**
 
-Navigate into the folder ```dfc`` under examples to play around with our Dockerfile Converter. Depending on where you are you might want to run the following
+- Security: minimal runtime, fewer moving parts, signed base.
+- Performance: smaller pulls and faster cold starts.
+- Maintainability: clear separation of build tooling vs runtime.
+
+## 🔁 Dockerfile Converter (dfc)
+
+Migrating existing Dockerfiles to Chainguard can be fast with the Dockerfile Converter (dfc). You’ll use it to transform a classic Python image build into a Chainguard-friendly one
+
+**Go to the dfc example folder**
 ```
 cd examples/dfc 
 ```
+In this folder you’ll find a classic dockerfile that builds a Python app. Open the dockerfile and make sure you understand each step (base image, copies, installs, entrypoint) and feel free to discuss this with your neighbour.
 
-In this folder you will find a classic dockerfile which pulls and builds a Python Image.
-
-Analyze the Dockerfile and if you fully understood what is happening move on and run the following command.
-
+Now run the following command to convert it into a Dockerfile using Chainguard Images.
 ```
 dfc dockerfile --org ${organization} >> dockerfile.cgr
 ```
-Now spend some time to see what happend to your Dockerfile and what pieces of the File got changed. Share in your Group the Number of changes dfc has performed.
+Compare the original to the converted file and what you’ll typically notice:
+- Base image switched to Chainguard (often minimal + non-root by default).
+- Build steps adjusted to multi-stage (dev stage → runtime)
+- Package installs shifted to the -dev image and uses apk add
 
-## APK add and search
-As you might have realized already Chainguard Images use apk as a manager. If you are looking for packages an easy way to do so is the following
+## 📦 Working with apk: Add & Search Packages
+Chainguard images use apk as their package manager — the same tool used by Alpine and Wolfi.
+If you ever want to explore what packages are available, or check which image provides a specific command, you can do that interactively.
+
+**🧰 Start an interactive shell**
+
+Run the following to start a temporary container with Wolfi base:
 ```
 docker run -it --rm --entrypoint /bin/sh cgr.dev/chainguard/wolfi-base
 ```
+This drops you into a shell inside the container.
 
+**🔄 Update the package index**
 ```
 apk update
 ```
+This fetches the latest package list from Wolfi’s repositories.
 
+**🔎 Search for packages**
+For example, to search for PHP 8.2 XML-related packages:
 ```
 apk search php*8.2*xml*
 ```
-You should get a very similiar output to this one
+You’ll see results similar to:
 ```
 php-8.2-simplexml-8.2.17-r0
 php-8.2-simplexml-config-8.2.17-r0
@@ -544,16 +582,23 @@ php-xml-8.2.11-r1
 php-xmlreader-8.2.11-r1
 php-xmlwriter-8.2.11-r1
 ```
-You can also search for commands providing you with an indication of where it is part of
+🧠 Tip: Use wildcards (*) to match patterns, versions, or submodules.
+
+**🧭 Search by command**
+You can also search by command name to find which package provides it:
 ```
 apk search cmd:useradd
 ```
-And the result should pretty much look like this: ```shadow-4.18.0-r5```
-And to top it - to find dependencies try this 
+Expected output: ```shadow-4.18.0-r5```
+
+This tells you the useradd command is part of the shadow package.
+
+**🧩 Inspect dependencies**
+To see what libraries or packages a specific package depends on:
 ```
 apk -R info shadow
 ```
-Which should deliver something similiar to
+Example output:
 ```
 ...
 shadow-4.15.1-r0 depends on:

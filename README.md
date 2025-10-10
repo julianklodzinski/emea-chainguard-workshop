@@ -109,7 +109,7 @@ To make your workflow smoother, set your organization as an environment variable
 
 ```export ORGANIZATION=yourOrgName```
 
-Now you can use that variable in your pull commands without retyping it each time.
+Make sure to replace yourOrgName with the actual Name of your Organization like it is stated in the Chainguard Console. Now you can use that variable in your pull commands without retyping it each time.
 
 ⚠️ Note:
 Environment variables are temporary — if you close your terminal or open a new shell, you’ll need to re-export this variable.

@@ -671,4 +671,4 @@ Created a customized, signed image based on Chainguard Python.
 - Triggered a verified build that produces provenance and SBOMs automatically.
 - Your organization now has its own Golden Image, built securely and reproducibly — ready to use in production or as a foundation for your teams.
 
-# This is the End of the Workshop - Thank you very much for following along - We hope your enjoyed it! Thank you
+# This is the End of the Workshop - Thank you very much for following along - We hope your enjoyed it! Thank you :)

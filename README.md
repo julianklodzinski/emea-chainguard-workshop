@@ -458,7 +458,7 @@ Move to the starter apps directory
 ```
 cd examples/python/starter
 ```
-Have a look at the app.py file and what it does. It will print out the Operating System it runs on. The Output will look similiar to this: ```Hello Wordl! From Linux operating system on 64bit ELF architecture```
+Have a look at the app.py file and what it does and don't forget to replace {{ORGANIZATION}} with your Organization Name. It will print out the Operating System it runs on. The Output will look similiar to this: ```Hello Wordl! From Linux operating system on 64bit ELF architecture```
 
 Now build your image:
 ```
@@ -490,6 +490,7 @@ cd examples/python/multi-stage
 Explore the files:
 - linky.py — simple Python app
 - requirements.txt — Python dependencies
+- Check the Dockerfile and make sure you change {{ORGANIZATION}} to your Organization
 
 **Get the demo asset**
 ```

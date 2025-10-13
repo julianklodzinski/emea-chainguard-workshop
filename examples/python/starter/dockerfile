@@ -1,4 +1,4 @@
-FROM cgr.dev/emea-chainguard-workshop/python:latest
+FROM cgr.dev/{{ORGANIZATION}}/python:latest
 
 WORKDIR /app
 

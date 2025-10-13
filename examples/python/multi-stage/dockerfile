@@ -1,4 +1,4 @@
-FROM cgr.dev/emea-chainguard-workshop/python:latest-dev AS builder
+FROM cgr.dev/{{ORGANIZATION}}/python:latest-dev AS builder
 
 ENV LANG=C.UTF-8
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -12,7 +12,7 @@ COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-FROM cgr.dev/emea-chainguard-workshop/python:latest
+FROM cgr.dev/{{ORGANIZATION}}/python:latest
 
 WORKDIR /linky
 

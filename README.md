@@ -645,7 +645,7 @@ contents:
 ```
 *(You must type this manually — pasting may not work properly in some terminals.)*
 
-3. Confirm a few times until you see the Diff and get ask if you want to continue - **‼️ Warning**: This might be annoying 🤣
+3. Confirm a few times until you see the Diff and get ask if you want to continue - **‼️ Warning**: This might be annoying 🤣 if you are not used to this
 4. Confirm again
 
 ### 🏗️ Watch the Build Process

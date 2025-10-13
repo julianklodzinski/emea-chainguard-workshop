@@ -17,7 +17,7 @@ PURPLE='\033[0;35m'
 NC='\033[0m'
 
 # Configuration
-VULNERABLE_IMAGE="redis:8.2.1"
+VULNERABLE_IMAGE="redis:8.2.1@sha256:5fa2edb1e408fa8235e6db8fab01d1afaaae96c9403ba67b70feceb8661e8621"
 SPOOFED_IMAGE="redis:8.2.1-spoofed"
 SLIM_SPOOFED_IMAGE="redis:8.2.1-spoofed-slim"
 SBOM_OUTPUT_DIR="./sbom-analysis"
@@ -502,28 +502,28 @@ case "$MODE" in
         echo -e "${RED}What Just Happened - The Complete Mess:${NC}"
         echo
         echo -e "${YELLOW}1. Version Spoofing Created Initial Chaos:${NC}"
-        echo "   • Real version: 8.2.1 (vulnerable)"
-        echo "   • Spoofed version: 8.2.2 (fake)"
-        echo "   • CVE-2025-46817 & CVE-2025-49844: ${GREEN}HIDDEN from Grype${NC}"
-        echo "   • But binary still contains 8.2.1 code = ${RED}EXPLOITABLE${NC}"
+        echo -e "   • Real version: 8.2.1 (vulnerable)"
+        echo -e "   • Spoofed version: 8.2.2 (fake)"
+        echo -e "   • CVE-2025-46817 & CVE-2025-49844: ${GREEN}HIDDEN from Grype${NC}"
+        echo -e "   • But binary still contains 8.2.1 code = ${RED}EXPLOITABLE${NC}"
         echo
         echo -e "${YELLOW}2. docker-slim Destroyed Metadata:${NC}"
-        echo "   • Removed 88 of 90 packages from metadata"
-        echo "   • Kept only redis binary + minimal deps"
-        echo "   • Package database: ${RED}CORRUPTED${NC}"
-        echo "   • SBOM integrity: ${RED}DESTROYED${NC}"
+        echo -e "   • Removed 88 of 90 packages from metadata"
+        echo -e "   • Kept only redis binary + minimal deps"
+        echo -e "   • Package database: ${RED}CORRUPTED${NC}"
+        echo -e "   • SBOM integrity: ${RED}DESTROYED${NC}"
         echo
         echo -e "${YELLOW}3. Scanner Chaos - Different Results:${NC}"
-        echo "   ${CYAN}Trivy scan result:${NC}"
-        echo "     → Finds: ${GREEN}NOTHING${NC} (no packages in corrupted metadata)"
-        echo "     → Verdict: ${GREEN}CLEAN${NC}"
+        echo -e "   ${CYAN}Trivy scan result:${NC}"
+        echo -e "     → Finds: ${GREEN}NOTHING${NC} (no packages in corrupted metadata)"
+        echo -e "     → Verdict: ${GREEN}CLEAN${NC}"
         echo
-        echo "   ${CYAN}Grype scan result:${NC}"
-        echo "     → Finds: ${RED}2 CRITICAL CVEs${NC} (CVE-2022-0543, CVE-2022-3734)"
-        echo "     → These are ${YELLOW}DIFFERENT${NC} from original CVEs"
-        echo "     → Grype uses binary analysis fallback"
-        echo "     → Detects redis binary, but version string is spoofed"
-        echo "     → Reports wrong CVEs based on corrupted metadata"
+        echo -e "   ${CYAN}Grype scan result:${NC}"
+        echo -e "     → Finds: ${RED}2 CRITICAL CVEs${NC} (CVE-2022-0543, CVE-2022-3734)"
+        echo -e "     → These are ${YELLOW}DIFFERENT${NC} from original CVEs"
+        echo -e "     → Grype uses binary analysis fallback"
+        echo -e "     → Detects redis binary, but version string is spoofed"
+        echo -e "     → Reports wrong CVEs based on corrupted metadata"
         echo
         echo -e "${RED}4. The Root Cause - Layered Failure:${NC}"
         echo

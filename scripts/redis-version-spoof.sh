@@ -352,7 +352,7 @@ case "$1" in
 esac
 
 echo -e "${BLUE}╔═══════════════════════════════════════════════════════════════╗${NC}"
-echo -e "${BLUE}║    Redis Supply Chain Attack & docker-slim Demonstration     ║${NC}"
+echo -e "${BLUE}║    Redis Supply Chain Attack & docker-slim Demonstration      ║${NC}"
 echo -e "${BLUE}╚═══════════════════════════════════════════════════════════════╝${NC}"
 echo
 
@@ -433,12 +433,12 @@ case "$MODE" in
         
         echo
         echo -e "${RED}Attack Impact:${NC}"
-        echo "  • Hidden: $crit_diff CRITICAL, $high_diff HIGH vulnerabilities"
-        echo "  • CVE-2025-46817: $([ -z "$SPOOFED_CVE_46817" ] && echo -e "${GREEN}HIDDEN ✓${NC}" || echo -e "${RED}Still visible${NC}")"
-        echo "  • CVE-2025-49844: $([ -z "$SPOOFED_CVE_49844" ] && echo -e "${GREEN}HIDDEN ✓${NC}" || echo -e "${RED}Still visible${NC}")"
-        echo "  • Actual exploitability: ${RED}100% - Binary unchanged${NC}"
+        echo -e "  • Hidden: $crit_diff CRITICAL, $high_diff HIGH vulnerabilities"
+        echo -e "  • CVE-2025-46817: $([ -z "$SPOOFED_CVE_46817" ] && echo -e "${GREEN}HIDDEN ✓${NC}" || echo -e "${RED}Still visible${NC}")"
+        echo -e "  • CVE-2025-49844: $([ -z "$SPOOFED_CVE_49844" ] && echo -e "${GREEN}HIDDEN ✓${NC}" || echo -e "${RED}Still visible${NC}")"
+        echo -e "  • Actual exploitability: ${RED}100% - Binary unchanged${NC}"
         echo
-        echo -e "${YELLOW}Scanner verdict:${NC} $([ "$SPOOFED_CRITICAL" -eq 0 ] && echo "${GREEN}PASS - No CRITICAL CVEs${NC}" || echo "${RED}FAIL${NC}")"
+        echo -e "${YELLOW}Scanner verdict:${NC} $([ "$SPOOFED_CRITICAL" -eq 0 ] && echo -e "${GREEN}PASS - No CRITICAL CVEs${NC}" || echo -e "${RED}FAIL${NC}")"
         echo -e "${RED}Reality:${NC} Fully vulnerable, version string spoofed"
         echo
         echo -e "${GREEN}✓ Attack completed - compromised image created${NC}"
@@ -466,7 +466,9 @@ case "$MODE" in
         echo -e "${YELLOW}This is what happens when optimization meets unverified images${NC}"
         echo
         
-        docker-slim build --tag="$SLIM_SPOOFED_IMAGE" --publish-port 6379 "$SPOOFED_IMAGE"
+	echo -e "Running docker-slim..."
+        docker-slim build --tag="$SLIM_SPOOFED_IMAGE" --publish-port 6379 "$SPOOFED_IMAGE" > /dev/null 2>&1
+	echo -e "Slimming completed!"
         
         echo
         echo "Scanning optimized (but compromised) image..."
@@ -565,28 +567,28 @@ case "$MODE" in
         echo -e "${PURPLE}═══ Why This Is Catastrophic ═══${NC}"
         echo
         echo -e "${YELLOW}1. Perfect False Confidence:${NC}"
-        echo "   • One scanner: ${GREEN}CLEAN${NC}"
-        echo "   • Other scanner: Reports ${YELLOW}wrong CVEs${NC}"
-        echo "   • Size: ${GREEN}${reduction}x smaller${NC}"
-        echo "   • Reality: ${RED}FULLY COMPROMISED${NC}"
+        echo -e "   • One scanner: ${GREEN}CLEAN${NC}"
+        echo -e "   • Other scanner: Reports ${YELLOW}wrong CVEs${NC}"
+        echo -e "   • Size: ${GREEN}${reduction}x smaller${NC}"
+        echo -e "   • Reality: ${RED}FULLY COMPROMISED${NC}"
         echo
         echo -e "${YELLOW}2. Zero Traceability:${NC}"
-        echo "   • Version spoofed before optimization"
-        echo "   • Metadata destroyed by docker-slim"
-        echo "   • SBOM inconsistent and unreliable"
-        echo "   • Supply chain provenance: ${RED}IMPOSSIBLE${NC}"
+        echo -e "   • Version spoofed before optimization"
+        echo -e "   • Metadata destroyed by docker-slim"
+        echo -e "   • SBOM inconsistent and unreliable"
+        echo -e "   • Supply chain provenance: ${RED}IMPOSSIBLE${NC}"
         echo
         echo -e "${YELLOW}3. Scanner Unreliability:${NC}"
-        echo "   • Different scanners, different results"
-        echo "   • Neither finds the real vulnerabilities"
-        echo "   • Creates false sense of security"
-        echo "   • Organizations can't trust their tools"
+        echo -e "   • Different scanners, different results"
+        echo -e "   • Neither finds the real vulnerabilities"
+        echo -e "   • Creates false sense of security"
+        echo -e "   • Organizations can't trust their tools"
         echo
         echo -e "${YELLOW}4. Supply Chain Amplification:${NC}"
-        echo "   • Appears legitimate and hardened"
-        echo "   • Will pass automated security gates"
-        echo "   • Will be deployed to production"
-        echo "   • ${RED}Will be exploited in the wild${NC}"
+        echo -e "   • Appears legitimate and hardened"
+        echo -e "   • Will pass automated security gates"
+        echo -e "   • Will be deployed to production"
+        echo -e "   • ${RED}Will be exploited in the wild${NC}"
         echo
         echo -e "${CYAN}═══ Defense Requirements ═══${NC}"
         echo

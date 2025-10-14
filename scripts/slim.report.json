@@ -1,0 +1,364 @@
+{
+  "document": "doc.report.command",
+  "version": "ov/command/slim/1.1",
+  "engine": "linux/amd64|ALP|x.1.42.2|29e62e7836de7b1004607c51c502537ffe1969f0|2025-01-16_07:48:54AM|x",
+  "containerized": false,
+  "host_distro": {
+    "name": "Fedora Linux",
+    "version": "41",
+    "display_name": "Fedora Linux 41 (KDE Plasma)"
+  },
+  "type": "slim",
+  "state": "done",
+  "target_reference": "redis:8.2.1-spoofed",
+  "system": {
+    "type": "Linux",
+    "release": "6.16.10-100.fc41.x86_64",
+    "distro": {
+      "name": "Debian GNU/Linux",
+      "version": "12",
+      "display_name": "Debian GNU/Linux 12 (bookworm)"
+    }
+  },
+  "source_image": {
+    "identity": {
+      "id": "sha256:a1b4a9f478d2e0baad7638aba02318d2ab24bc55f7bc140fe92e3d71ff2e7e7c",
+      "tags": [
+        "8.2.1-spoofed"
+      ],
+      "names": [
+        "redis:8.2.1-spoofed"
+      ]
+    },
+    "size": 155291757,
+    "size_human": "155 MB",
+    "create_time": "2025-10-13T20:38:28Z",
+    "runtime_name": "docker",
+    "runtime_version": "28.5.1",
+    "architecture": "amd64",
+    "exposed_ports": [
+      "6379/tcp"
+    ],
+    "os": "linux",
+    "volumes": [
+      "/data"
+    ],
+    "env_vars": [
+      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-8.2.1.tar.gz",
+      "REDIS_DOWNLOAD_SHA=e2c1cb9dd4180a35b943b85dfc7dcdd42566cdbceca37d0d0b14c21731582d3e"
+    ],
+    "container_entry": {
+      "exe_path": ""
+    }
+  },
+  "minified_image_size": 56330981,
+  "minified_image_size_human": "56 MB",
+  "minified_image": "redis:8.2.1-spoofed-slim",
+  "minified_image_id": "sha256:4336eccacd45651af365db37766816bcf1be5dbfd623ee137b7c59678ba182d6",
+  "minified_image_digest": "sha256:e52302dee0293e068a45156385ee0dfb434c234c5dc4dc6dc2511bf48b620e4b",
+  "minified_image_has_data": true,
+  "minified_by": 2.756773523968986,
+  "artifact_location": "/tmp/mint-state/.mint-state/images/a1b4a9f478d2e0baad7638aba02318d2ab24bc55f7bc140fe92e3d71ff2e7e7c/artifacts",
+  "container_report_name": "creport.json",
+  "seccomp_profile_name": "redis-seccomp.json",
+  "apparmor_profile_name": "redis-apparmor-profile",
+  "image_stack": [
+    {
+      "is_top_image": false,
+      "id": "sha256:0d85a7a7167b8c34cf9ac3f31905004c3ed9b3572668c1eb7e648efdb283fdb3",
+      "full_name": "redis:8.2.1",
+      "repo_name": "redis",
+      "version_tag": "8.2.1",
+      "raw_tags": [
+        "redis:8.2.1"
+      ],
+      "create_time": "2025-08-18T16:44:26Z",
+      "new_size": 137144525,
+      "new_size_human": "137 MB",
+      "instructions": [
+        {
+          "type": "RUN",
+          "time": "2025-08-18T16:44:26Z",
+          "is_nop": false,
+          "is_exec_form": true,
+          "local_image_exists": false,
+          "layer_index": 0,
+          "size": 74813916,
+          "size_human": "75 MB",
+          "command_snippet": "RUN []",
+          "command_all": "RUN []",
+          "system_commands": [
+            "[]"
+          ],
+          "comment": "debuerreotype 0.16",
+          "inst_set_time_bucket": "2025-08-18T18:30:00+02:00",
+          "inst_set_time_index": 0,
+          "inst_set_time_reverse_index": 1
+        },
+        {
+          "type": "RUN",
+          "time": "2025-08-18T16:44:26Z",
+          "is_nop": false,
+          "local_image_exists": false,
+          "layer_index": 0,
+          "size": 4302,
+          "size_human": "4.3 kB",
+          "command_snippet": "RUN set -eux; \tgroupadd -r -g 999 redis; \tus...",
+          "command_all": "RUN set -eux; \tgroupadd -r -g 999 redis; \tuseradd -r -g redis -u 999 redis",
+          "system_commands": [
+            "set -eux",
+            "groupadd -r -g 999 redis",
+            "useradd -r -g redis -u 999 redis"
+          ],
+          "comment": "buildkit.dockerfile.v0",
+          "is_buildkit_instruction": true,
+          "inst_set_time_bucket": "2025-08-18T18:30:00+02:00",
+          "inst_set_time_index": 0,
+          "inst_set_time_reverse_index": 1
+        },
+        {
+          "type": "RUN",
+          "time": "2025-08-18T16:44:26Z",
+          "is_nop": false,
+          "local_image_exists": false,
+          "layer_index": 0,
+          "size": 5084,
+          "size_human": "5.1 kB",
+          "command_snippet": "RUN set -eux; \tapt-get update; \tapt-get inst...",
+          "command_all": "RUN set -eux; \tapt-get update; \tapt-get install -y --no-install-recommends \t\ttzdata \t; \trm -rf /var/lib/apt/lists/*",
+          "system_commands": [
+            "set -eux",
+            "apt-get update",
+            "apt-get install -y --no-install-recommends tzdata",
+            "rm -rf /var/lib/apt/lists/*"
+          ],
+          "comment": "buildkit.dockerfile.v0",
+          "is_buildkit_instruction": true,
+          "inst_set_time_bucket": "2025-08-18T18:30:00+02:00",
+          "inst_set_time_index": 0,
+          "inst_set_time_reverse_index": 1
+        },
+        {
+          "type": "ENV",
+          "time": "2025-08-18T16:44:26Z",
+          "is_nop": false,
+          "local_image_exists": false,
+          "layer_index": 0,
+          "size": 0,
+          "params": "REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-8.2.1.tar.gz",
+          "command_snippet": "ENV REDIS_DOWNLOAD_URL=http://download.redis...",
+          "command_all": "ENV REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-8.2.1.tar.gz",
+          "comment": "buildkit.dockerfile.v0",
+          "is_buildkit_instruction": true,
+          "inst_set_time_bucket": "2025-08-18T18:30:00+02:00",
+          "inst_set_time_index": 0,
+          "inst_set_time_reverse_index": 1
+        },
+        {
+          "type": "ENV",
+          "time": "2025-08-18T16:44:26Z",
+          "is_nop": false,
+          "local_image_exists": false,
+          "layer_index": 0,
+          "size": 0,
+          "params": "REDIS_DOWNLOAD_SHA=e2c1cb9dd4180a35b943b85dfc7dcdd42566cdbceca37d0d0b14c21731582d3e",
+          "command_snippet": "ENV REDIS_DOWNLOAD_SHA=e2c1cb9dd4180a35b943b...",
+          "command_all": "ENV REDIS_DOWNLOAD_SHA=e2c1cb9dd4180a35b943b85dfc7dcdd42566cdbceca37d0d0b14c21731582d3e",
+          "comment": "buildkit.dockerfile.v0",
+          "is_buildkit_instruction": true,
+          "inst_set_time_bucket": "2025-08-18T18:30:00+02:00",
+          "inst_set_time_index": 0,
+          "inst_set_time_reverse_index": 1
+        },
+        {
+          "type": "RUN",
+          "time": "2025-08-18T16:44:26Z",
+          "is_nop": false,
+          "local_image_exists": false,
+          "layer_index": 0,
+          "size": 62316360,
+          "size_human": "62 MB",
+          "command_snippet": "RUN set -eux; \t\tsavedAptMark=\"$(apt-mark sho...",
+          "command_all": "RUN set -eux; \t\tsavedAptMark=\"$(apt-mark showmanual)\"; \tapt-get update; \tapt-get install -y --no-install-recommends \t\tca-certificates \t\twget \t\tdpkg-dev \t\tgcc \t\tg++ \t\tlibc6-dev \t\tlibssl-dev \t\tmake; \t\tarch=\"$(dpkg --print-architecture | awk -F- '{ print $NF }')\"; \tcase \"$arch\" in \t\t'amd64') export BUILD_WITH_MODULES=yes; export INSTALL_RUST_TOOLCHAIN=yes; export DISABLE_WERRORS=yes ;; \t\t'arm64') export BUILD_WITH_MODULES=yes; export INSTALL_RUST_TOOLCHAIN=yes; export DISABLE_WERRORS=yes ;; \t\t*) echo >&2 \"Modules are NOT supported! unsupported architecture: '$arch'\"; export BUILD_WITH_MODULES=no ;; \tesac; \tif [ \"$BUILD_WITH_MODULES\" = \"yes\" ]; then \t\tapt-get install -y --no-install-recommends \t\t\tgit \t\t\tcmake \t\t\tpython3 \t\t\tpython3-pip \t\t\tpython3-venv \t\t\tpython3-dev \t\t\tunzip \t\t\trsync \t\t\tclang \t\t\tautomake \t\t\tautoconf \t\t\tlibtool \t\t\tg++; \tfi; \t\trm -rf /var/lib/apt/lists/*; \t\twget -O redis.tar.gz \"$REDIS_DOWNLOAD_URL\"; \techo \"$REDIS_DOWNLOAD_SHA *redis.tar.gz\" | sha256sum -c -; \tmkdir -p /usr/src/redis; \ttar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1; \trm redis.tar.gz; \t\tgrep -E '^ *createBoolConfig[(]\"protected-mode\",.*, *1 *,.*[)],$' /usr/src/redis/src/config.c; \tsed -ri 's!^( *createBoolConfig[(]\"protected-mode\",.*, *)1( *,.*[)],)$!\\10\\2!' /usr/src/redis/src/config.c; \tgrep -E '^ *createBoolConfig[(]\"protected-mode\",.*, *0 *,.*[)],$' /usr/src/redis/src/config.c; \t\tgnuArch=\"$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)\"; \textraJemallocConfigureFlags=\"--build=$gnuArch\"; \tcase \"${arch##*-}\" in \t\tamd64 | i386 | x32) extraJemallocConfigureFlags=\"$extraJemallocConfigureFlags --with-lg-page=12\" ;; \t\t*) extraJemallocConfigureFlags=\"$extraJemallocConfigureFlags --with-lg-page=16\" ;; \tesac; \textraJemallocConfigureFlags=\"$extraJemallocConfigureFlags --with-lg-hugepage=21\"; \tgrep -F 'cd jemalloc && \\\n\t./configure ' /usr/src/redis/deps/Makefile; \tsed -ri 's!cd jemalloc && \\\n\t./configure !&'\"$extraJemallocConfigureFlags\"' !' /usr/src/redis/deps/Makefile; \tgrep -F \"cd jemalloc && \\\n\t./configure $extraJemallocConfigureFlags \" /usr/src/redis/deps/Makefile; \t\texport BUILD_TLS=yes; \tmake -C /usr/src/redis -j \"$(nproc)\" all; \tmake -C /usr/src/redis install; \t\tserverMd5=\"$(md5sum /usr/local/bin/redis-server | cut -d' ' -f1)\"; export serverMd5; \tfind /usr/local/bin/redis* -maxdepth 0 \t\t-type f -not -name redis-server \t\t-exec sh -eux -c ' \t\t\tmd5=\"$(md5sum \"$1\" | cut -d\" \" -f1)\"; \t\t\ttest \"$md5\" = \"$serverMd5\"; \t\t' -- '{}' ';' \t\t-exec ln -svfT 'redis-server' '{}' ';' \t; \t\tmake -C /usr/src/redis distclean; \trm -r /usr/src/redis; \t\tapt-mark auto '.*' > /dev/null; \t[ -z \"$savedAptMark\" ] || apt-mark manual $savedAptMark > /dev/null; \tfind /usr/local -type f -executable -exec ldd '{}' ';' \t\t| awk '/=>/ { so = $(NF-1); if (index(so, \"/usr/local/\") == 1) { next }; gsub(\"^/(usr/)?\", \"\", so); printf \"*%s\\n\", so }' \t\t| sort -u \t\t| xargs -r dpkg-query --search \t\t| cut -d: -f1 \t\t| sort -u \t\t| xargs -r apt-mark manual \t; \tapt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \trm -rf /var/cache/debconf/*; \t\tredis-cli --version; \tredis-server --version",
+          "system_commands": [
+            "set -eux; savedAptMark=\"$(apt-mark showmanual)\"; apt-get update; apt-get install -y --no-install-recommends ca-certificates wget dpkg-dev gcc g++ libc6-dev libssl-dev make; arch=\"$(dpkg --print-architecture | awk -F- '{ print $NF }')\"; case \"$arch\" in 'amd64') export BUILD_WITH_MODULES=yes; export INSTALL_RUST_TOOLCHAIN=yes; export DISABLE_WERRORS=yes ;; 'arm64') export BUILD_WITH_MODULES=yes; export INSTALL_RUST_TOOLCHAIN=yes; export DISABLE_WERRORS=yes ;; *) echo >&2 \"Modules are NOT supported! unsupported architecture: '$arch'\"; export BUILD_WITH_MODULES=no ;; esac; if [ \"$BUILD_WITH_MODULES\" = \"yes\" ]; then apt-get install -y --no-install-recommends git cmake python3 python3-pip python3-venv python3-dev unzip rsync clang automake autoconf libtool g++; fi; rm -rf /var/lib/apt/lists/*; wget -O redis.tar.gz \"$REDIS_DOWNLOAD_URL\"; echo \"$REDIS_DOWNLOAD_SHA *redis.tar.gz\" | sha256sum -c -; mkdir -p /usr/src/redis; tar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1; rm redis.tar.gz; grep -E '^ *createBoolConfig[(]\"protected-mode\",.*, *1 *,.*[)],$' /usr/src/redis/src/config.c; sed -ri 's!^( *createBoolConfig[(]\"protected-mode\",.*, *)1( *,.*[)],)$!102!' /usr/src/redis/src/config.c; grep -E '^ *createBoolConfig[(]\"protected-mode\",.*, *0 *,.*[)],$' /usr/src/redis/src/config.c; gnuArch=\"$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)\"; extraJemallocConfigureFlags=\"--build=$gnuArch\"; case \"${arch##*-}\" in amd64 | i386 | x32) extraJemallocConfigureFlags=\"$extraJemallocConfigureFlags --with-lg-page=12\" ;; *) extraJemallocConfigureFlags=\"$extraJemallocConfigureFlags --with-lg-page=16\" ;; esac; extraJemallocConfigureFlags=\"$extraJemallocConfigureFlags --with-lg-hugepage=21\"; grep -F 'cd jemalloc",
+            "./configure ' /usr/src/redis/deps/Makefile; sed -ri 's!cd jemalloc",
+            "./configure !&'\"$extraJemallocConfigureFlags\"' !' /usr/src/redis/deps/Makefile; grep -F \"cd jemalloc",
+            "./configure $extraJemallocConfigureFlags \" /usr/src/redis/deps/Makefile; export BUILD_TLS=yes; make -C /usr/src/redis -j \"$(nproc)\" all; make -C /usr/src/redis install; serverMd5=\"$(md5sum /usr/local/bin/redis-server | cut -d' ' -f1)\"; export serverMd5; find /usr/local/bin/redis* -maxdepth 0 -type f -not -name redis-server -exec sh -eux -c ' md5=\"$(md5sum \"$1\" | cut -d\" \" -f1)\"; test \"$md5\" = \"$serverMd5\"; ' -- '{}' ';' -exec ln -svfT 'redis-server' '{}' ';' ; make -C /usr/src/redis distclean; rm -r /usr/src/redis; apt-mark auto '.*' > /dev/null; [ -z \"$savedAptMark\" ] || apt-mark manual $savedAptMark > /dev/null; find /usr/local -type f -executable -exec ldd '{}' ';' | awk '/=>/ { so = $(NF-1); if (index(so, \"/usr/local/\") == 1) { next }; gsub(\"^/(usr/)?\", \"\", so); printf \"*%sn\", so }' | sort -u | xargs -r dpkg-query --search | cut -d: -f1 | sort -u | xargs -r apt-mark manual ; apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; rm -rf /var/cache/debconf/*; redis-cli --version; redis-server --version"
+          ],
+          "comment": "buildkit.dockerfile.v0",
+          "is_buildkit_instruction": true,
+          "inst_set_time_bucket": "2025-08-18T18:30:00+02:00",
+          "inst_set_time_index": 0,
+          "inst_set_time_reverse_index": 1
+        },
+        {
+          "type": "RUN",
+          "time": "2025-08-18T16:44:26Z",
+          "is_nop": false,
+          "local_image_exists": false,
+          "layer_index": 0,
+          "size": 0,
+          "command_snippet": "RUN mkdir /data && \\\n\tchown redis:redis /dat...",
+          "command_all": "RUN mkdir /data && \\\n\tchown redis:redis /data",
+          "system_commands": [
+            "mkdir /data",
+            "chown redis:redis /data"
+          ],
+          "comment": "buildkit.dockerfile.v0",
+          "is_buildkit_instruction": true,
+          "inst_set_time_bucket": "2025-08-18T18:30:00+02:00",
+          "inst_set_time_index": 0,
+          "inst_set_time_reverse_index": 1
+        },
+        {
+          "type": "VOLUME",
+          "time": "2025-08-18T16:44:26Z",
+          "is_nop": false,
+          "local_image_exists": false,
+          "layer_index": 0,
+          "size": 0,
+          "params": "[/data]",
+          "command_snippet": "VOLUME [/data]",
+          "command_all": "VOLUME [/data]",
+          "comment": "buildkit.dockerfile.v0",
+          "is_buildkit_instruction": true,
+          "inst_set_time_bucket": "2025-08-18T18:30:00+02:00",
+          "inst_set_time_index": 0,
+          "inst_set_time_reverse_index": 1
+        },
+        {
+          "type": "WORKDIR",
+          "time": "2025-08-18T16:44:26Z",
+          "is_nop": false,
+          "local_image_exists": false,
+          "layer_index": 0,
+          "size": 0,
+          "params": "/data",
+          "command_snippet": "WORKDIR /data",
+          "command_all": "WORKDIR /data",
+          "system_commands": [
+            "mkdir -p /data"
+          ],
+          "comment": "buildkit.dockerfile.v0",
+          "is_buildkit_instruction": true,
+          "inst_set_time_bucket": "2025-08-18T18:30:00+02:00",
+          "inst_set_time_index": 0,
+          "inst_set_time_reverse_index": 1
+        },
+        {
+          "type": "COPY",
+          "time": "2025-08-18T16:44:26Z",
+          "is_nop": false,
+          "local_image_exists": false,
+          "layer_index": 0,
+          "size": 4863,
+          "size_human": "4.9 kB",
+          "params": "docker-entrypoint.sh /usr/local/bin/",
+          "command_snippet": "COPY docker-entrypoint.sh /usr/local/bin/",
+          "command_all": "COPY docker-entrypoint.sh /usr/local/bin/",
+          "comment": "buildkit.dockerfile.v0",
+          "is_buildkit_instruction": true,
+          "inst_set_time_bucket": "2025-08-18T18:30:00+02:00",
+          "inst_set_time_index": 0,
+          "inst_set_time_reverse_index": 1
+        },
+        {
+          "type": "ENTRYPOINT",
+          "time": "2025-08-18T16:44:26Z",
+          "is_nop": false,
+          "is_exec_form": true,
+          "local_image_exists": false,
+          "layer_index": 0,
+          "size": 0,
+          "params": "[\"docker-entrypoint.sh\"]\n",
+          "command_snippet": "ENTRYPOINT [\"docker-entrypoint.sh\"]\n",
+          "command_all": "ENTRYPOINT [\"docker-entrypoint.sh\"]\n",
+          "comment": "buildkit.dockerfile.v0",
+          "is_buildkit_instruction": true,
+          "inst_set_time_bucket": "2025-08-18T18:30:00+02:00",
+          "inst_set_time_index": 0,
+          "inst_set_time_reverse_index": 1
+        },
+        {
+          "type": "EXPOSE",
+          "time": "2025-08-18T16:44:26Z",
+          "is_nop": false,
+          "local_image_exists": false,
+          "layer_index": 0,
+          "size": 0,
+          "params": "6379/tcp",
+          "command_snippet": "EXPOSE 6379/tcp",
+          "command_all": "EXPOSE 6379/tcp",
+          "comment": "buildkit.dockerfile.v0",
+          "is_buildkit_instruction": true,
+          "inst_set_time_bucket": "2025-08-18T18:30:00+02:00",
+          "inst_set_time_index": 0,
+          "inst_set_time_reverse_index": 1
+        },
+        {
+          "type": "CMD",
+          "time": "2025-08-18T16:44:26Z",
+          "is_last_instruction": true,
+          "is_nop": false,
+          "is_exec_form": true,
+          "local_image_exists": true,
+          "layer_index": 0,
+          "size": 0,
+          "params": "[\"redis-server\"]\n",
+          "command_snippet": "CMD [\"redis-server\"]\n",
+          "command_all": "CMD [\"redis-server\"]\n",
+          "comment": "buildkit.dockerfile.v0",
+          "raw_tags": [
+            "redis:8.2.1"
+          ],
+          "is_buildkit_instruction": true,
+          "inst_set_time_bucket": "2025-08-18T18:30:00+02:00",
+          "inst_set_time_index": 0,
+          "inst_set_time_reverse_index": 1
+        }
+      ]
+    },
+    {
+      "is_top_image": true,
+      "id": "sha256:a1b4a9f478d2e0baad7638aba02318d2ab24bc55f7bc140fe92e3d71ff2e7e7c",
+      "full_name": "redis:8.2.1-spoofed",
+      "repo_name": "redis",
+      "version_tag": "8.2.1-spoofed",
+      "raw_tags": [
+        "redis:8.2.1-spoofed"
+      ],
+      "create_time": "2025-10-13T20:38:28Z",
+      "new_size": 18147232,
+      "new_size_human": "18 MB",
+      "base_image_id": "sha256:0d85a7a7167b8c34cf9ac3f31905004c3ed9b3572668c1eb7e648efdb283fdb3",
+      "instructions": [
+        {
+          "type": "RUN",
+          "time": "2025-10-13T20:38:28Z",
+          "is_last_instruction": true,
+          "is_nop": false,
+          "is_exec_form": true,
+          "local_image_exists": true,
+          "layer_index": 0,
+          "size": 18147232,
+          "size_human": "18 MB",
+          "command_snippet": "RUN [\"redis-server\"]",
+          "command_all": "RUN [\"redis-server\"]",
+          "system_commands": [
+            "[\"redis-server\"]"
+          ],
+          "raw_tags": [
+            "redis:8.2.1-spoofed"
+          ],
+          "inst_set_time_bucket": "2025-10-13T22:30:00+02:00",
+          "inst_set_time_index": 1,
+          "inst_set_time_reverse_index": 0
+        }
+      ]
+    }
+  ],
+  "image_created": true,
+  "image_build_engine": "internal"
+}

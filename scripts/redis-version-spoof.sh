@@ -17,7 +17,7 @@ PURPLE='\033[0;35m'
 NC='\033[0m'
 
 # Configuration
-VULNERABLE_IMAGE="redis:8.2.1"
+VULNERABLE_IMAGE="redis:8.2.1@sha256:5fa2edb1e408fa8235e6db8fab01d1afaaae96c9403ba67b70feceb8661e8621"
 SPOOFED_IMAGE="redis:8.2.1-spoofed"
 SLIM_SPOOFED_IMAGE="redis:8.2.1-spoofed-slim"
 SBOM_OUTPUT_DIR="./sbom-analysis"
@@ -352,7 +352,7 @@ case "$1" in
 esac
 
 echo -e "${BLUE}╔═══════════════════════════════════════════════════════════════╗${NC}"
-echo -e "${BLUE}║    Redis Supply Chain Attack & docker-slim Demonstration     ║${NC}"
+echo -e "${BLUE}║    Redis Supply Chain Attack & docker-slim Demonstration      ║${NC}"
 echo -e "${BLUE}╚═══════════════════════════════════════════════════════════════╝${NC}"
 echo
 
@@ -433,12 +433,12 @@ case "$MODE" in
         
         echo
         echo -e "${RED}Attack Impact:${NC}"
-        echo "  • Hidden: $crit_diff CRITICAL, $high_diff HIGH vulnerabilities"
-        echo "  • CVE-2025-46817: $([ -z "$SPOOFED_CVE_46817" ] && echo -e "${GREEN}HIDDEN ✓${NC}" || echo -e "${RED}Still visible${NC}")"
-        echo "  • CVE-2025-49844: $([ -z "$SPOOFED_CVE_49844" ] && echo -e "${GREEN}HIDDEN ✓${NC}" || echo -e "${RED}Still visible${NC}")"
-        echo "  • Actual exploitability: ${RED}100% - Binary unchanged${NC}"
+        echo -e "  • Hidden: $crit_diff CRITICAL, $high_diff HIGH vulnerabilities"
+        echo -e "  • CVE-2025-46817: $([ -z "$SPOOFED_CVE_46817" ] && echo -e "${GREEN}HIDDEN ✓${NC}" || echo -e "${RED}Still visible${NC}")"
+        echo -e "  • CVE-2025-49844: $([ -z "$SPOOFED_CVE_49844" ] && echo -e "${GREEN}HIDDEN ✓${NC}" || echo -e "${RED}Still visible${NC}")"
+        echo -e "  • Actual exploitability: ${RED}100% - Binary unchanged${NC}"
         echo
-        echo -e "${YELLOW}Scanner verdict:${NC} $([ "$SPOOFED_CRITICAL" -eq 0 ] && echo "${GREEN}PASS - No CRITICAL CVEs${NC}" || echo "${RED}FAIL${NC}")"
+        echo -e "${YELLOW}Scanner verdict:${NC} $([ "$SPOOFED_CRITICAL" -eq 0 ] && echo -e "${GREEN}PASS - No CRITICAL CVEs${NC}" || echo -e "${RED}FAIL${NC}")"
         echo -e "${RED}Reality:${NC} Fully vulnerable, version string spoofed"
         echo
         echo -e "${GREEN}✓ Attack completed - compromised image created${NC}"
@@ -466,7 +466,9 @@ case "$MODE" in
         echo -e "${YELLOW}This is what happens when optimization meets unverified images${NC}"
         echo
         
-        docker-slim build --tag="$SLIM_SPOOFED_IMAGE" --publish-port 6379 "$SPOOFED_IMAGE"
+	echo -e "Running docker-slim..."
+        docker-slim build --tag="$SLIM_SPOOFED_IMAGE" --publish-port 6379 "$SPOOFED_IMAGE" > /dev/null 2>&1
+	echo -e "Slimming completed!"
         
         echo
         echo "Scanning optimized (but compromised) image..."
@@ -502,28 +504,28 @@ case "$MODE" in
         echo -e "${RED}What Just Happened - The Complete Mess:${NC}"
         echo
         echo -e "${YELLOW}1. Version Spoofing Created Initial Chaos:${NC}"
-        echo "   • Real version: 8.2.1 (vulnerable)"
-        echo "   • Spoofed version: 8.2.2 (fake)"
-        echo "   • CVE-2025-46817 & CVE-2025-49844: ${GREEN}HIDDEN from Grype${NC}"
-        echo "   • But binary still contains 8.2.1 code = ${RED}EXPLOITABLE${NC}"
+        echo -e "   • Real version: 8.2.1 (vulnerable)"
+        echo -e "   • Spoofed version: 8.2.2 (fake)"
+        echo -e "   • CVE-2025-46817 & CVE-2025-49844: ${GREEN}HIDDEN from Grype${NC}"
+        echo -e "   • But binary still contains 8.2.1 code = ${RED}EXPLOITABLE${NC}"
         echo
         echo -e "${YELLOW}2. docker-slim Destroyed Metadata:${NC}"
-        echo "   • Removed 88 of 90 packages from metadata"
-        echo "   • Kept only redis binary + minimal deps"
-        echo "   • Package database: ${RED}CORRUPTED${NC}"
-        echo "   • SBOM integrity: ${RED}DESTROYED${NC}"
+        echo -e "   • Removed 88 of 90 packages from metadata"
+        echo -e "   • Kept only redis binary + minimal deps"
+        echo -e "   • Package database: ${RED}CORRUPTED${NC}"
+        echo -e "   • SBOM integrity: ${RED}DESTROYED${NC}"
         echo
         echo -e "${YELLOW}3. Scanner Chaos - Different Results:${NC}"
-        echo "   ${CYAN}Trivy scan result:${NC}"
-        echo "     → Finds: ${GREEN}NOTHING${NC} (no packages in corrupted metadata)"
-        echo "     → Verdict: ${GREEN}CLEAN${NC}"
+        echo -e "   ${CYAN}Trivy scan result:${NC}"
+        echo -e "     → Finds: ${GREEN}NOTHING${NC} (no packages in corrupted metadata)"
+        echo -e "     → Verdict: ${GREEN}CLEAN${NC}"
         echo
-        echo "   ${CYAN}Grype scan result:${NC}"
-        echo "     → Finds: ${RED}2 CRITICAL CVEs${NC} (CVE-2022-0543, CVE-2022-3734)"
-        echo "     → These are ${YELLOW}DIFFERENT${NC} from original CVEs"
-        echo "     → Grype uses binary analysis fallback"
-        echo "     → Detects redis binary, but version string is spoofed"
-        echo "     → Reports wrong CVEs based on corrupted metadata"
+        echo -e "   ${CYAN}Grype scan result:${NC}"
+        echo -e "     → Finds: ${RED}2 CRITICAL CVEs${NC} (CVE-2022-0543, CVE-2022-3734)"
+        echo -e "     → These are ${YELLOW}DIFFERENT${NC} from original CVEs"
+        echo -e "     → Grype uses binary analysis fallback"
+        echo -e "     → Detects redis binary, but version string is spoofed"
+        echo -e "     → Reports wrong CVEs based on corrupted metadata"
         echo
         echo -e "${RED}4. The Root Cause - Layered Failure:${NC}"
         echo
@@ -565,28 +567,28 @@ case "$MODE" in
         echo -e "${PURPLE}═══ Why This Is Catastrophic ═══${NC}"
         echo
         echo -e "${YELLOW}1. Perfect False Confidence:${NC}"
-        echo "   • One scanner: ${GREEN}CLEAN${NC}"
-        echo "   • Other scanner: Reports ${YELLOW}wrong CVEs${NC}"
-        echo "   • Size: ${GREEN}${reduction}x smaller${NC}"
-        echo "   • Reality: ${RED}FULLY COMPROMISED${NC}"
+        echo -e "   • One scanner: ${GREEN}CLEAN${NC}"
+        echo -e "   • Other scanner: Reports ${YELLOW}wrong CVEs${NC}"
+        echo -e "   • Size: ${GREEN}${reduction}x smaller${NC}"
+        echo -e "   • Reality: ${RED}FULLY COMPROMISED${NC}"
         echo
         echo -e "${YELLOW}2. Zero Traceability:${NC}"
-        echo "   • Version spoofed before optimization"
-        echo "   • Metadata destroyed by docker-slim"
-        echo "   • SBOM inconsistent and unreliable"
-        echo "   • Supply chain provenance: ${RED}IMPOSSIBLE${NC}"
+        echo -e "   • Version spoofed before optimization"
+        echo -e "   • Metadata destroyed by docker-slim"
+        echo -e "   • SBOM inconsistent and unreliable"
+        echo -e "   • Supply chain provenance: ${RED}IMPOSSIBLE${NC}"
         echo
         echo -e "${YELLOW}3. Scanner Unreliability:${NC}"
-        echo "   • Different scanners, different results"
-        echo "   • Neither finds the real vulnerabilities"
-        echo "   • Creates false sense of security"
-        echo "   • Organizations can't trust their tools"
+        echo -e "   • Different scanners, different results"
+        echo -e "   • Neither finds the real vulnerabilities"
+        echo -e "   • Creates false sense of security"
+        echo -e "   • Organizations can't trust their tools"
         echo
         echo -e "${YELLOW}4. Supply Chain Amplification:${NC}"
-        echo "   • Appears legitimate and hardened"
-        echo "   • Will pass automated security gates"
-        echo "   • Will be deployed to production"
-        echo "   • ${RED}Will be exploited in the wild${NC}"
+        echo -e "   • Appears legitimate and hardened"
+        echo -e "   • Will pass automated security gates"
+        echo -e "   • Will be deployed to production"
+        echo -e "   • ${RED}Will be exploited in the wild${NC}"
         echo
         echo -e "${CYAN}═══ Defense Requirements ═══${NC}"
         echo

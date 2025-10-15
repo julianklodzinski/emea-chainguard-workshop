@@ -25,11 +25,12 @@ Follow the links for installation instructions:
 | **yq**       | YAML processor                                     | [Install yq →](https://github.com/mikefarah/yq?tab=readme-ov-file#install)                          |
 | **cosign**   | Tool for signing and verifying container artifacts | [Install cosign →](https://docs.sigstore.dev/cosign/system_config/installation/)                    |
 | **dfc**      | Diff and compare tool for Chainguard images        | [Install dfc →](https://github.com/chainguard-dev/dfc)                                              |
+| **git**      | To manage Code Repositories                        | [Install git →](https://git-scm.com/downloads)                                              |
 
 ✅ Quick Check:
 Run the following command to verify your setup:
 ```
-chainctl version && docker version && grype version && trivy --version && jq --version && yq --version && cosign version && dfc version
+chainctl version && docker version && grype version && syft --version && trivy --version && jq --version && yq --version && cosign version && dfc version && git --version
 ```
 All tools should return a version string.
 
@@ -47,13 +48,15 @@ Make sure your system can reach the following endpoints, as they are required fo
 - packages.cgr.dev
 - packages.wolfi.dev
 
-# 🧭 Workshop Step-by-Step Guide
-The workshop begins with a short introduction to Chainguard and a demo of the final outcome so you can see what you’ll build.
-After that, it’s your turn — you’ll get hands-on with your own Chainguard environment.
-
 ## 👥 Workshop Account Access
-At the start of the session, you’ll receive an invite link granting access to your dedicated Workshop Organization in Chainguard.
-Once you’ve accepted the invitation, you’ll be ready to authenticate using chainctl.
+At the start of the session, you’ll receive an invite link granting access to your dedicated Workshop Organization in Chainguard. For authorization you need an account in one of the three providers:
+- Google
+- Gitlab
+- Github
+
+# 🧭 Workshop Step-by-Step Guide
+The workshop begins with a short introduction to Chainguard, a demo and a quick walkthrough of the final outcome of the workshop so you know what you’ll build.
+After that, it’s your turn — you’ll get hands-on with your own Chainguard environment.
 
 ## 🔗 Check and Set Up chainctl
 If you haven’t installed chainctl yet, please [follow our installation guide](https://edu.chainguard.dev/chainguard/chainctl-usage/how-to-install-chainctl/) first.
@@ -63,7 +66,7 @@ Authenticate and link your local CLI with your Chainguard credentials:
 ```
 chainctl auth login
 ```
-You’ll be redirected to a browser window to complete authentication.
+You’ll be redirected to a browser window to complete authentication. If you are conducting this Workshop from within a VM keep in mind that there might be no browser available. In this case add a ***--headless*** at the end of the command and copy paste the URL into your browser window.
 
 2️⃣ Verify your authentication status
 Check that you’re logged in and view details about your current session:
@@ -93,7 +96,7 @@ Chainguard Images are stored in your organization’s private registry on cgr.de
 ### 🔹 Pulling Chainguard Images
 To pull an image from Chainguard, use the following command format: 
 
-```docker pull cgr.dev/{{ORGANIZATION}}/{{IMAGE}}{TAGag}}```
+```docker pull cgr.dev/{{ORGANIZATION}}/{{IMAGE}}{TAG}}```
 
 - organization → your workshop organization name (e.g., mycompany.de or secureteam.uk)
 - image → the image name (e.g., python)
@@ -121,10 +124,13 @@ docker pull cgr.dev/${ORGANIZATION}/python:latest
 ```
 Once complete, you’ll have both the -dev (containing Shell and Package Manager) and minimal version without it available locally.
 
-#### 🌍 Get the Public Version Too
+#### 🌍 Get a few public Images as well
 To compare Chainguard Images to public alternatives, also pull the public Python image:
 ```
 docker pull python:latest
+```
+```
+docker pull alpine:latest
 ```
 
 ## 🔍 Security Scanning with Grype and Trivy
@@ -206,9 +212,25 @@ If you see “0 vulnerability matches” — congrats 🎉 You’re looking at a
 #### 🧾 Prepare for Comparison
 
 Before scanning, open a notes file or text editor where you can record the results.
-You’ll use these later to compare the findings between Chainguard and public images.
+Make sure you mark all observations clearly.
 
-**🚀 Try It Yourself**
+#### 🚀 Try It Yourself
+Let's first start with Alpine and Trivy
+```
+trivy image alpine:latest
+```
+Note down:
+- Number of Vulnerabilities
+- Number of Secrets
+
+Now let's test with Grype
+```
+grype alpine:latest
+```
+Note down:
+- Number of Vulnerabilities
+
+
 
 Scan both of your Chainguard Images first:
 ```

@@ -142,16 +142,16 @@ Both tools do an excellent job of detecting and reporting vulnerabilities (CVEs)
 
 Security scanners like Grype and Trivy analyze container images, filesystems, or source code repositories to uncover known vulnerabilities. Here’s what happens behind the scenes:
 
-**1️⃣ Dependency Mapping**
+#### 1️⃣ Dependency Mapping
 
 The scanner inspects the image to identify all installed software components and their versions — not only the direct dependencies you added, but also transitive dependencies (libraries that your libraries depend on).
 
-**2️⃣ SBOM Ingestion**
+#### 2️⃣ SBOM Ingestion
 
 Scanners can read Software Bills of Materials (SBOMs) to understand exactly what’s inside your image.
 SBOMs provide a detailed inventory of packages, improving scan accuracy and transparency.
 
-**3️⃣ Vulnerability Matching**
+#### 3️⃣ Vulnerability Matching
 
 Each dependency version is compared against multiple vulnerability databases — such as:
 - The National Vulnerability Database (NVD)
@@ -160,7 +160,7 @@ Each dependency version is compared against multiple vulnerability databases —
 
 If a package matches a known vulnerable version, the scanner flags it as a finding.
 
-**4️⃣ Reporting & Remediation**
+#### 4️⃣ Reporting & Remediation
 
 The results include:
 - A list of detected CVEs
@@ -169,16 +169,17 @@ The results include:
 
 Both Grype and Trivy support various output formats (table, JSON, SARIF), making them ideal for both manual review and CI/CD integration.
 
-🧠 Interaction Tip
+**🧠 Interaction Tip**
 
 Ask the person to your right hand side *“Who here has integrated vulnerability scanning into their CI pipeline already? What tools or challenges have you seen?”*
 
-### Scanning with Grype
+### Scanning with Grype & Trivy
 
+#### Grype
 Grype is one of the simplest and most effective vulnerability scanners available.
 With a single command, you can analyze a container image and identify any known CVEs.
 
-#### 🔹 Running a Scan
+##### 🔹 Running a Scan
 
 To scan an image, use the following format: ```grype image:tag```
 
@@ -188,7 +189,7 @@ Grype will automatically:
 - Compare dependencies against known vulnerability databases,
 - And generate a summary report.
 
-#### 📊 Example Output
+##### 📊 Example Output
 
 Here’s what a successful scan might look like:
 ```
@@ -209,12 +210,43 @@ Cataloged contents              ━━━━━━━━━━━━━━━━
 ```
 If you see “0 vulnerability matches” — congrats 🎉 You’re looking at a CVE-free image.
 
-#### 🧾 Prepare for Comparison
+#### Trivy
+
+Trivy is another excellent vulnerability scanner — simple, fast, and widely used in DevOps pipelines.
+It performs a similar analysis to Grype but presents results in a different format and uses a slightly different vulnerability database.
+
+##### 🔹 Running a Trivy Scan
+
+Use the following command format: ```trivy image image:tag```
+
+For example: ```trivy image cgr.dev/${ORGANIZATION}/python:latest```
+
+Trivy will scan your image, compare package versions against known CVE databases, and produce a summary report.
+
+##### 📊 Example Output
+
+Here’s what the output might look like for a clean Chainguard Image:
+
+##### Report Summary
+```
+┌──────────────────────────────────────────────────────────────────────┬────────────┬─────────────────┬─────────┐
+│                             Target                                   │    Type    │ Vulnerabilities │ Secrets │
+├──────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
+│ cgr.dev/${ORGANIZATION}/python:latest (chainguard 20230214)          │ chainguard │        0        │    -    │
+└──────────────────────────────────────────────────────────────────────┴────────────┴─────────────────┴─────────┘
+Legend:
+- '-': Not scanned  
+- '0': Clean (no security findings detected)
+```
+Looks great, right?
+But here’s the catch…
+
+## 🧾 Prepare for Comparison
 
 Before scanning, open a notes file or text editor where you can record the results.
 Make sure you mark all observations clearly.
 
-#### 🚀 Try It Yourself
+## 🚀 Try It Yourself
 Let's first start with Alpine and Trivy
 ```
 trivy image alpine:latest
@@ -230,9 +262,27 @@ grype alpine:latest
 Note down:
 - Number of Vulnerabilities
 
+**🧐 Compare the results from Trivy and Grype and if you do this in a group find someone to discuss your findings**
 
+### 🌍 Scan Python Image
 
-Scan both of your Chainguard Images first:
+#### Public Images
+```
+grype python:latest
+```
+Note down:
+- Number of Vulnerabilities
+
+```
+trivy image python:latest
+```
+Note down:
+- Number of Vulnerabilities
+
+**🧐 Compare the results from Trivy and Grype and if you do this in a group find someone to discuss your findings**
+
+#### Chainguard Images
+Now let's start using our Chainguard Images ❤️
 ```
 grype cgr.dev/${ORGANIZATION}/python:latest
 ```
@@ -246,14 +296,15 @@ If you’re doing this in a group, pair up with the person next to you and compa
 
 If you’re remote, share your findings in the chat or unmute to discuss!
 
-**🌍 Scan the Public Image**
+And with Trivy!
+```
+trivy image cgr.dev/${ORGANIZATION}/python:latest
+```
+```
+trivy image cgr.dev/${ORGANIZATION}/python:latest-dev
+```
 
-Now, let’s see how the public Python image compares:
-```
-grype python:latest
-```
-You’ll likely notice a big difference in the number of detected vulnerabilities —
-this highlights how Chainguard Images dramatically reduce your security workload.
+Again write down your observations and discuss this within your group.
 
 **😄 Bonus Interaction**
 
@@ -262,47 +313,13 @@ Once results are in plan with the one to your right on how to fix them
 Just kidding 😅 — we’d be here all week!
 
 
-### 🧰 Scanning with Trivy
-
-Trivy is another excellent vulnerability scanner — simple, fast, and widely used in DevOps pipelines.
-It performs a similar analysis to Grype but presents results in a different format and uses a slightly different vulnerability database.
-
-#### 🔹 Running a Trivy Scan
-
-Use the following command format: ```trivy image image:tag```
-
-For example: ```trivy image cgr.dev/${ORGANIZATION}/python:latest```
-
-Trivy will scan your image, compare package versions against known CVE databases, and produce a summary report.
-
-**📊 Example Output**
-
-Here’s what the output might look like for a clean Chainguard Image:
-
-**Report Summary**
-```
-┌──────────────────────────────────────────────────────────────────────┬────────────┬─────────────────┬─────────┐
-│                             Target                                   │    Type    │ Vulnerabilities │ Secrets │
-├──────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
-│ cgr.dev/${ORGANIZATION}/python:latest (chainguard 20230214)          │ chainguard │        0        │    -    │
-└──────────────────────────────────────────────────────────────────────┴────────────┴─────────────────┴─────────┘
-Legend:
-- '-': Not scanned  
-- '0': Clean (no security findings detected)
-```
-Looks great, right?
-But here’s the catch…
-
 #### ⚠️ Important Insight
 
-Trivy only reports vulnerabilities when a fix is available. That means if a vulnerability exists but no patch or updated version is currently published, Trivy will not display it.
+As you might realized there can be differences in the CVE reporting of Scanners. Trivy for example only reports vulnerabilities where a fix is available. That means if a vulnerability exists but no patch or updated version is currently published, Trivy will not show a CVE. You think you are secure but you are not.
 
-This can be concerning if you’re relying on a single tool for complete visibility.
-Different scanners use different data sources, and their reporting logic can vary — so it’s always best to compare results.
+This can be concerning if you’re relying on a single tool for complete visibility. Different scanners use different data sources, and their reporting logic can vary — so it’s always best to compare results.
 
-You don't believe us? Go ahead and scan a public image with Grype and Trivy and check for differences.
-
-### ⚠️ Scanner Limitations — Why one scanner is not enough
+#### ⚠️ Scanner Limitations — Why one scanner is not enough
 
 ```Important: We will not demonstrate methods to hide vulnerabilities. Instead we’ll discuss, at a high level, why scanners can miss things and how to design defenses so those gaps don’t matter.```
 
@@ -319,7 +336,7 @@ High-level reasons scanners can miss issues
 
 Because of these limits, don’t trust a single scan result by itself. Build defense in depth: multiple scanners, verified SBOMs, provenance/signatures, reproducible builds, and attestation.
 
-**🔧 Concrete defensive checklist for teams** 
+##### 🔧 Concrete defensive checklist for teams** 
 
 Use this checklist to harden image pipelines and detect tampering:
 
@@ -336,8 +353,6 @@ Use this checklist to harden image pipelines and detect tampering:
 ✅ Include SBOM and provenance verification as gate checks in CI/CD
 
 ✅ Monitor for unexpected packages or package counts in images (automated guardrails)
-
-
 
 ## 🧾 Provenance — Verify Container Images from Chainguard
 
@@ -464,13 +479,13 @@ This confirms:
 - It came directly from Chainguard’s build systems, and
 - It hasn’t been modified in transit.
 
-**🧠 What You’ve Just Proven**
+#### 🧠 What You’ve Just Proven
 
 You can now confidently answer the question:
 
 “Can I trust that this image actually comes from Chainguard and hasn’t been tampered with?”
 
-**✅ Yes — you can.**
+#### ✅ Yes — you can.
 
 You’ve verified both the signature and the provenance attestation, proving authenticity and integrity end-to-end.
 
@@ -515,13 +530,13 @@ Explore the files:
 - requirements.txt — Python dependencies
 - Check the Dockerfile and make sure you change {{ORGANIZATION}} to your Organization
 
-**Get the demo asset**
+### Get the demo asset
 ```
 curl -O https://raw.githubusercontent.com/chainguard-dev/edu-images-demos/main/python/linky/linky.png
 ```
 The app will reference this image and show output in your terminal.
 
-**Inspect the Dockerfile**
+### Inspect the Dockerfile
 Key idea: start from ```python:latest-dev```, install, then switch to ```python:latest``` and copy in only what’s needed. Run the following commands to build your Application.
 
 ```
@@ -531,12 +546,12 @@ and of course run it and see what happens
 ```
 docker run --rm linky
 ```
-**🤩 Bonus**
+### 🤩 Bonus
 - Scan your build image with Grype and Trivy
 - What ends up in the final image, and what’s left behind in the builder?
 - How would you gate this image in CI (scan, SBOM, provenance verify)?
 
-**🧠 Why this matters**
+### 🧠 Why this matters
 
 - Security: minimal runtime, fewer moving parts, signed base.
 - Performance: smaller pulls and faster cold starts.
@@ -566,7 +581,7 @@ Compare the original to the converted file and what you’ll typically notice:
 Chainguard images use apk as their package manager — the same tool used by Alpine and Wolfi.
 If you ever want to explore what packages are available, or check which image provides a specific command, you can do that interactively.
 
-**🧰 Start an interactive shell**
+### 🧰 Start an interactive shell
 
 Run the following to start a temporary container with Wolfi base:
 ```
@@ -574,14 +589,14 @@ docker run -it --rm --entrypoint /bin/sh cgr.dev/chainguard/wolfi-base
 ```
 This drops you into a shell inside the container.
 
-**🔄 Update the package index**
+### 🔄 Update the package index
 
 ```
 apk update
 ```
 This fetches the latest package list from Wolfi’s repositories.
 
-**🔎 Search for packages**
+### 🔎 Search for packages
 
 For example, to search for PHP 8.2 XML-related packages:
 ```
@@ -604,7 +619,7 @@ php-xmlwriter-8.2.11-r1
 ```
 🧠 Tip: Use wildcards (*) to match patterns, versions, or submodules.
 
-**🧭 Search by command**
+### 🧭 Search by command
 
 You can also search by command name to find which package provides it:
 ```
@@ -614,7 +629,7 @@ Expected output: ```shadow-4.18.0-r5```
 
 This tells you the useradd command is part of the shadow package.
 
-**🧩 Inspect dependencies**
+### 🧩 Inspect dependencies
 
 To see what libraries or packages a specific package depends on:
 ```
@@ -687,7 +702,7 @@ While the build runs:
 4. Use the search bar to browse available packages you could add.
 *You can try these later on your new custom image — for now, keep the standard python image as-is.*
 
-**🧠 What You’ve Achieved**
+### 🧠 What You’ve Achieved
 
 Created a customized, signed image based on Chainguard Python.
 - Added tools (curl and bash) to extend functionality.

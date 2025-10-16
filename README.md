@@ -654,53 +654,28 @@ That’s exactly what Custom Assembly does.
 
 ### 🧩 What is Custom Assembly?
 Custom Assembly allows you to:
-- Clone an existing Chainguard image (like python),
+- Modify an existing Chainguard image (like python),
 - Add or remove packages, and
 - Publish it as a new, verifiable image with Chainguard’s provenance and SBOM automatically attached.
 
 You can do this via the CLI (chainctl) or directly in the Chainguard Console UI.
 
 ### 🧰 CLI Walkthrough — Create Your Own Custom Python Image
-Let’s create a personalized Python image that includes a couple of extra utilities. Run the below commands to set everything up. Make sure you provide in Step 1 your name!
-
-1. Run: ```NAME=ENTER_YOUR_FIRST_NAME_HERE```
-2. Run: ```NEW_IMAGE_NAME=python-$NAME```
-3. Run: ```chainctl image repo build edit --parent $ORGANIZATION --repo $IMAGE --save-as $NEW_IMAGE_NAME```
-This command:
-- Opens an interactive YAML editor in your shell,
-- Starts from the original image definition, and
-- Lets you modify the image contents before saving.
-
-**✍️ Edit Your Image Definition**
-When the YAML opens, follow these steps carefully:
-1. Remove the brackets {}
-2. Add the following to the file:
+You can edit, rename, delete and add customized Images with our chainctl. For this Workshop we will not use this functionality instead we will focus on the UI capabilities of Custom Assembly. With the CLI Use cases like Automation or Config as Code are possible to achieve as the config of what apk packages are added in the Image are stored as a YAML file looking like this:
 ```
 contents:
   packages:
   - curl
   - bash
 ```
-*(You must type this manually — pasting may not work properly in some terminals.)*
-
-3. Confirm a few times until you see the Diff and get ask if you want to continue - **‼️ Warning**: This might be annoying 🤣 if you are not used to this
-4. Confirm again
-
-### 🏗️ Watch the Build Process
-Once confirmed, the new image build starts in the background.
-
-It may take a few minutes up to an hour, depending on the packages added, backend load and batch job size.
-
-✅ Tip: You can monitor build progress in your Chainguard Console → Images → Builds tab.
 
 ### 🖥️ Explore Your Image in the Console
-
-While the build runs:
-1. Open the Chainguard Console.
-2. Navigate to your Python image.
-3. In the top-right corner, click Customize Image.
-4. Use the search bar to browse available packages you could add.
-*You can try these later on your new custom image — for now, keep the standard python image as-is.*
+Let's go to [console.chainguard.dev](console.chainguard.dev) and follow the steps below:
+1. Navigate to your Python image.
+2. In the top-right corner, click Customize Image.
+3. Use the search bar to browse available packages you could add.
+4. Add curl and bash
+5. Confirm and Preview your Customized Image. (If you do this in a larger Group skip this Step as we don't want to kick of several rebuilds at ones)
 
 ### 🧠 What You’ve Achieved
 
@@ -710,8 +685,20 @@ Created a customized, signed image based on Chainguard Python.
 - Your organization now has its own Golden Image, built securely and reproducibly — ready to use in production or as a foundation for your teams.
 
 
-### 🧠 Vulnerability fixing the ~~lazy~~ evil way ###
+### 🧠 Vulnerability "fixing" the hacky way
+By now you should have relaized a few things:
+1. One Scanner is not enough as results can differ
+2. Signing and verifying Images gives us trust
+3. Having no CVEs is pretty sexy
+
+Now you might wonder, but why is this all important? Why do we have to trust it? Well, because "tricking" or "hacking" a Scanner is actually very simple.
+
 A quick demo how we can "fix" the vulnerabilities - and make everyone happy, righ? Right?
 
+If you want to run it your own navigate to the [scripts](https://github.com/julianklodzinski/emea-chainguard-workshop/tree/main/scripts) Folder in the Github Repository and check out the Readme there for a Step-by-Step Guide. 
+
+If tricking a Scanner is so easy - building from Source and providing all evidence for it is the only way you can trust your images. That is why we are here.
 
 # This is the End of the Workshop - Thank you very much for following along - We hope your enjoyed it! Thank you :)
+
+# Chainguard - Your Safe Source for Open Source

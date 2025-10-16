@@ -670,7 +670,7 @@ contents:
 ```
 
 ### 🖥️ Explore Your Image in the Console
-Let's go to [console.chainguard.dev](console.chainguard.dev) and follow the steps below:
+Let's go to [https://console.chainguard.dev/](https://console.chainguard.dev/) and follow the steps below:
 1. Navigate to your Python image.
 2. In the top-right corner, click Customize Image.
 3. Use the search bar to browse available packages you could add.

@@ -66,7 +66,7 @@ Authenticate and link your local CLI with your Chainguard credentials:
 ```
 chainctl auth login
 ```
-You’ll be redirected to a browser window to complete authentication. If you are conducting this Workshop from within a VM keep in mind that there might be no browser available. In this case add a ***--headless*** at the end of the command and copy paste the URL into your browser window.
+You’ll be redirected to a browser window to complete authentication. If you are conducting this Workshop from within a VM keep in mind that there might be no browser available. In this case add a ***--headless*** at the end of the command and copy paste the URL into your browser window. Additionally, if you would like to specify the social login, add an additional flag ***--social-login={email|google|github|gitlab}*** to use desired authentication service.
 
 2️⃣ Verify your authentication status
 Check that you’re logged in and view details about your current session:

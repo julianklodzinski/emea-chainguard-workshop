@@ -15,4 +15,5 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-.json
+*.json
+sbom-analysis/*

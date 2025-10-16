@@ -22,7 +22,7 @@
   },
   "source_image": {
     "identity": {
-      "id": "sha256:a1b4a9f478d2e0baad7638aba02318d2ab24bc55f7bc140fe92e3d71ff2e7e7c",
+      "id": "sha256:f87e4909b25ed28236f50769bdad40c61555ce106369143ccfe5c01fd2db43a3",
       "tags": [
         "8.2.1-spoofed"
       ],
@@ -32,7 +32,7 @@
     },
     "size": 155291757,
     "size_human": "155 MB",
-    "create_time": "2025-10-13T20:38:28Z",
+    "create_time": "2025-10-16T08:41:09Z",
     "runtime_name": "docker",
     "runtime_version": "28.5.1",
     "architecture": "amd64",
@@ -55,11 +55,11 @@
   "minified_image_size": 56330981,
   "minified_image_size_human": "56 MB",
   "minified_image": "redis:8.2.1-spoofed-slim",
-  "minified_image_id": "sha256:4336eccacd45651af365db37766816bcf1be5dbfd623ee137b7c59678ba182d6",
-  "minified_image_digest": "sha256:e52302dee0293e068a45156385ee0dfb434c234c5dc4dc6dc2511bf48b620e4b",
+  "minified_image_id": "sha256:8d8d8b68c2fce9503afeebf36e16ac892cab8341d678d544a09d6d4ccafe2f88",
+  "minified_image_digest": "sha256:72a70b96c2e2eb3f4fd77c17ab8eb2d32e449f93f7e3cd2b3d51424e1656af20",
   "minified_image_has_data": true,
   "minified_by": 2.756773523968986,
-  "artifact_location": "/tmp/mint-state/.mint-state/images/a1b4a9f478d2e0baad7638aba02318d2ab24bc55f7bc140fe92e3d71ff2e7e7c/artifacts",
+  "artifact_location": "/tmp/mint-state/.mint-state/images/f87e4909b25ed28236f50769bdad40c61555ce106369143ccfe5c01fd2db43a3/artifacts",
   "container_report_name": "creport.json",
   "seccomp_profile_name": "redis-seccomp.json",
   "apparmor_profile_name": "redis-apparmor-profile",
@@ -322,21 +322,21 @@
     },
     {
       "is_top_image": true,
-      "id": "sha256:a1b4a9f478d2e0baad7638aba02318d2ab24bc55f7bc140fe92e3d71ff2e7e7c",
+      "id": "sha256:f87e4909b25ed28236f50769bdad40c61555ce106369143ccfe5c01fd2db43a3",
       "full_name": "redis:8.2.1-spoofed",
       "repo_name": "redis",
       "version_tag": "8.2.1-spoofed",
       "raw_tags": [
         "redis:8.2.1-spoofed"
       ],
-      "create_time": "2025-10-13T20:38:28Z",
+      "create_time": "2025-10-16T08:41:09Z",
       "new_size": 18147232,
       "new_size_human": "18 MB",
       "base_image_id": "sha256:0d85a7a7167b8c34cf9ac3f31905004c3ed9b3572668c1eb7e648efdb283fdb3",
       "instructions": [
         {
           "type": "RUN",
-          "time": "2025-10-13T20:38:28Z",
+          "time": "2025-10-16T08:41:09Z",
           "is_last_instruction": true,
           "is_nop": false,
           "is_exec_form": true,
@@ -352,7 +352,7 @@
           "raw_tags": [
             "redis:8.2.1-spoofed"
           ],
-          "inst_set_time_bucket": "2025-10-13T22:30:00+02:00",
+          "inst_set_time_bucket": "2025-10-16T10:30:00+02:00",
           "inst_set_time_index": 1,
           "inst_set_time_reverse_index": 0
         }

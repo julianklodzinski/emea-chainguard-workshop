@@ -1,11 +1,13 @@
 # 🔹 Why Join This Workshop
-In this session, you’ll learn how to use Chainguard Images — secure, minimal, and continuously verified container images — in a practical, hands-on way.
-## Common Challenges We’ll Address
-If any of these sound familiar, this workshop is for you:
+In this Workshop, you’ll learn how to use Chainguard Images — secure, minimal, and continuously verified container images — in a practical, hands-on way.
+
+If anything like this sounds familar to you:
 - “We want minimal and CVE-free images.”
 - “We spend too much time chasing CVEs.”
 - “Our customers require CVE-free software.”
 - “We need to meet compliance targets.”
+- "We have a golden Image programm"
+- "We lost the overview about where all the images come from and what is in them"
 
 # ⚙️ Prework
 
@@ -670,7 +672,7 @@ contents:
 ```
 
 ### 🖥️ Explore Your Image in the Console
-Let's go to [console.chainguard.dev](console.chainguard.dev) and follow the steps below:
+Let's go to [https://console.chainguard.dev/](https://console.chainguard.dev/) and follow the steps below:
 1. Navigate to your Python image.
 2. In the top-right corner, click Customize Image.
 3. Use the search bar to browse available packages you could add.

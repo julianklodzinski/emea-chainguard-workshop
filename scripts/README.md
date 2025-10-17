@@ -225,7 +225,7 @@ Chainguard workflow:
 ### 5. Proactive Security
 
 **Daily operations:**
-- 10,000+ packages, 1,500+ images rebuilt nightly
+- 10,000+ packages, 1,700+ images rebuilt nightly
 - Upstream monitoring: detects releases in minutes
 - CVE remediation: 7-day SLA for Critical (often same-day)
 - OpenSSF compiler hardening (beyond industry standard)

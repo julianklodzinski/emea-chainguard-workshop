@@ -707,7 +707,7 @@ Ok you have spent a lot of time to work with our Containers. Now let's focus on 
 - Mitigate Maleware by building them from Source
 - Providing Provenance so that you can check who and how they got built
 - Patching and Backporting CVEs
-
+```
 ┌──────────────┐
 │   Libraries  │ ---> Chainguard maleware mitigating and CVE free Libraries  
 ├──────────────│  
@@ -715,7 +715,7 @@ Ok you have spent a lot of time to work with our Containers. Now let's focus on 
 ├──────────────│  
 │  Bare Metal  │  
 └──────────────┘
-
+```
 
 So when we talk about CVEs the previous Part of the Workshop focused on the Image Level CVEs and security where Libraries focus on your Language based Vulnerabilities.
 

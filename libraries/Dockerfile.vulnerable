@@ -1,0 +1,17 @@
+FROM python:3.10
+
+WORKDIR /app
+
+RUN apt-get update && apt-get upgrade -y
+RUN pip3 install uv
+COPY pyproject.toml .
+RUN --mount=type=secret,id=uv_toml,dst=/app/uv.toml,mode=0444 uv sync
+
+COPY secret.cfg .
+
+COPY static ./static
+
+COPY app.py .
+
+ENV PATH="/usr/local/bin:${PATH}"
+ENTRYPOINT ["/usr/local/bin/uv", "run", "--no-sync", "app.py"]

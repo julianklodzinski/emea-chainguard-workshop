@@ -17,3 +17,5 @@ Temporary Items
 .apdisk
 *.json
 sbom-analysis/*
+uv.toml
+*.toml

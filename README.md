@@ -717,7 +717,7 @@ If you want to run it your own navigate to the [scripts](https://github.com/juli
 
 If tricking a Scanner is so easy - building from Source and providing all evidence for it is the only way you can trust your images. That is why we are here.
 
-# 🖼️ Chainguard Libraries - 🧭 Workshop Step-by-Step Guide
+# 📚 Chainguard Libraries - 🧭 Workshop Step-by-Step Guide
 ```
 ┌────────────────────────────────┐
 │     Chainguard Libraries       │

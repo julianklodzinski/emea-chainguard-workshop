@@ -9,6 +9,15 @@ If anything like this sounds familar to you:
 - "We have a golden Image programm"
 - "We lost the overview about where all the images come from and what is in them"
 
+# Chainguard Products
+```
+┌────────────────────────────────┐ ┌────────────────────────────────┐ ┌────────────────────────────────┐
+│     Chainguard Containers      │ │     Chainguard Libraries       │ │         Chainguard VMs         │
+│         1700+ Projects         │ │    Python Java JavaScript      │ │                                │
+│     Distroless & CVE free      │ │ Maleware Mitigating & CVE free │ │        On-prem and Cloud       │
+└────────────────────────────────┘ └────────────────────────────────┘ └────────────────────────────────┘
+```
+
 # ⚙️ Prework
 
 Before joining the workshop, please make sure your environment is ready. This ensures you can fully participate in the hands-on exercises without interruptions.
@@ -56,7 +65,14 @@ At the start of the session, you’ll receive an invite link granting access to 
 - Gitlab
 - Github
 
-# 🖼️ Images - 🧭 Workshop Step-by-Step Guide
+# 🖼️ Chainguard Container Images - 🧭 Workshop Step-by-Step Guide
+```
+┌────────────────────────────────┐
+│     Chainguard Containers      │
+│         1700+ Projects         │
+│     Distroless & CVE free      │
+└────────────────────────────────┘
+```
 The workshop begins with a short introduction to Chainguard, a demo and a quick walkthrough of the final outcome of the workshop so you know what you’ll build.
 After that, it’s your turn — you’ll get hands-on with your own Chainguard environment.
 
@@ -701,30 +717,28 @@ If you want to run it your own navigate to the [scripts](https://github.com/juli
 
 If tricking a Scanner is so easy - building from Source and providing all evidence for it is the only way you can trust your images. That is why we are here.
 
-# 🖼️ Libraries - 🧭 Workshop Step-by-Step Guide
+# 🖼️ Chainguard Libraries - 🧭 Workshop Step-by-Step Guide
+```
+┌────────────────────────────────┐
+│     Chainguard Libraries       │
+│    Python Java JavaScript      │
+│ Maleware Mitigating & CVE free │
+└────────────────────────────────┘
+```
 
 Ok you have spent a lot of time to work with our Containers. Now let's focus on Libraries :) When we talk about Libraries we talk about Python, Java and JavaScript Libraries you usually pull from Sources like PyPi, Maven or NPM. Our Libraries essentially do two things:
 - Mitigate Maleware by building them from Source
 - Providing Provenance so that you can check who and how they got built
 - Patching and Backporting CVEs
-```
-┌──────────────┐
-│   Libraries  │ ---> Chainguard maleware mitigating and CVE free Libraries  
-├──────────────│  
-│  Containers  │ ---> Chainguard secure distroless CVE free Container Images  
-├──────────────│  
-│  Bare Metal  │  
-└──────────────┘
-```
 
-So when we talk about CVEs the previous Part of the Workshop focused on the Image Level CVEs and security where Libraries focus on your Language based Vulnerabilities.
+So when we talk about CVEs the previous Part of the Workshop focused on the Image Level CVEs and security where Libraries focus on your Language based Vulnerabilities and maleware mitigation.
 
 Let's get started :) 
 
 ## Building a vulnerable Image
 
-Let's start check out our Application first. For this:
-1. Navigate to libraries folder and explore the content.
+Let's start with checking out our Application first. For this:
+1. Navigate to libraries folder and explore the content
 2. 
 
 # Chainguard - Your Safe Source for Open Source

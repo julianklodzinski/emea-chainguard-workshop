@@ -49,4 +49,6 @@ At the start of the session, you’ll receive an invite link granting access to 
 - Gitlab
 - Github
 
-# Chainguard - Your Safe Source for Open Source
+# Chainguard - Workshops
+## [Chainguard Images Hand-on Workshop →](https://github.com/julianklodzinski/emea-chainguard-workshop/tree/main/images) 
+## [Chainguard Libraries Hands-on Workshop →](https://github.com/julianklodzinski/emea-chainguard-workshop/tree/main/libraries)

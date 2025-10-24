@@ -31,6 +31,7 @@ Follow the links for installation instructions:
 | **Docker**   | Container runtime (any vendor/version is fine)     | [Docker Installation →](https://docs.docker.com/get-docker/)                                        |
 | **Grype**    | Image vulnerability scanner                        | [Install Grype →](https://github.com/anchore/grype?tab=readme-ov-file#installation)                 |
 | **git**      | To manage Code Repositories                        | [Install git →](https://git-scm.com/downloads)                                                      |
+| **chainver** | To verify Libraries                                | [Install chainver →](https://edu.chainguard.dev/chainguard/libraries/verification/)                 |
 
 ✅ Quick Check:
 Run the following command to verify your setup:
@@ -58,6 +59,8 @@ At the start of the session, you’ll receive an invite link granting access to 
 - Google
 - Gitlab
 - Github
+
+In addition to the above you will need a username and token to access Chainguard Libraries.
 
 # 📚 Chainguard Libraries - 🧭 Workshop Step-by-Step Guide
 ```

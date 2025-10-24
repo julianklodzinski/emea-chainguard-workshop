@@ -1,0 +1,5 @@
+index-strategy = "unsafe-best-match"
+
+[[index]]
+name = "chainguard-remediated"
+url = "https://{{user}}:{{token}}@{{url}}"

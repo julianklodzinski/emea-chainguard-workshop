@@ -20,23 +20,7 @@ If anything like this sounds familar to you:
 
 # ⚙️ Prework
 
-Before joining the workshop, please make sure your environment is ready. This ensures you can fully participate in the hands-on exercises without interruptions.
-
-## 🧰 Required Tooling
-You’ll need the following tools installed and accessible from your terminal.
-Follow the links for installation instructions:
-| Tool         | Purpose                                            | Installation Link                                                                                   |
-| ------------ | -------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| **Chainctl** | CLI to interact with Chainguard services           | [Install Chainctl →](https://edu.chainguard.dev/chainguard/chainctl-usage/how-to-install-chainctl/) |
-| **Docker**   | Container runtime (any vendor/version is fine)     | [Docker Installation →](https://docs.docker.com/get-docker/)                                        |
-| **Grype**    | Image vulnerability scanner                        | [Install Grype →](https://github.com/anchore/grype?tab=readme-ov-file#installation)                 |
-| **Syft**     | SBOM generator                                     | [Install Syft →](https://github.com/anchore/syft?tab=readme-ov-file#installation)                   |
-| **Trivy**    | Image vulnerability and misconfiguration scanner   | [Install Trivy →](https://trivy.dev/latest/getting-started/installation/)                           |
-| **jq**       | JSON processor                                     | [Install jq →](https://jqlang.org/download/)                                                        |
-| **yq**       | YAML processor                                     | [Install yq →](https://github.com/mikefarah/yq?tab=readme-ov-file#install)                          |
-| **cosign**   | Tool for signing and verifying container artifacts | [Install cosign →](https://docs.sigstore.dev/cosign/system_config/installation/)                    |
-| **dfc**      | Diff and compare tool for Chainguard images        | [Install dfc →](https://github.com/chainguard-dev/dfc)                                              |
-| **git**      | To manage Code Repositories                        | [Install git →](https://git-scm.com/downloads)                                              |
+Before joining one of the workshops, please make sure your environment is ready. This ensures you can fully participate in the hands-on exercises without interruptions. A detailed list and instructions which tools are required are in the Workshop Instructions.
 
 ✅ Quick Check:
 Run the following command to verify your setup:

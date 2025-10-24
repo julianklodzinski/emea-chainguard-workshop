@@ -1,0 +1,18 @@
+[project]
+name = "demo-python-remediated"
+version = "0.1.0"
+description = "Demo Python application with remediated dependencies for solutions engineers"
+dependencies = [
+    "aiohttp==3.9.1",
+]
+requires-python = "==3.10.*"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[[tool.poetry.source]]
+name = "PyPI-Group"
+url = "https://chainguard.jfrog.io/artifactory/api/pypi/PyPI-Group/simple"
+priority = "primary"
+

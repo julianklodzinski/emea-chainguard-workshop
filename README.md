@@ -22,7 +22,7 @@ Follow the links for installation instructions:
 | **Docker**   | Container runtime (any vendor/version is fine)     | [Docker Installation →](https://docs.docker.com/get-docker/)                                        |
 | **Grype**    | Image vulnerability scanner                        | [Install Grype →](https://github.com/anchore/grype?tab=readme-ov-file#installation)                 |
 | **Syft**     | SBOM generator                                     | [Install Syft →](https://github.com/anchore/syft?tab=readme-ov-file#installation)                   |
-| **Trivy**    | Image vulnerability and misconfiguration scanner   | [Install Trivy →](https://trivy.dev/latest/getting-started/installation/)                           |
+| **Trivy**    | Image vulnerability and misconfiguration scanner   | [Install Trivy →](https://trivy.dev/docs/latest/getting-started/installation/)                           |
 | **jq**       | JSON processor                                     | [Install jq →](https://jqlang.org/download/)                                                        |
 | **yq**       | YAML processor                                     | [Install yq →](https://github.com/mikefarah/yq?tab=readme-ov-file#install)                          |
 | **cosign**   | Tool for signing and verifying container artifacts | [Install cosign →](https://docs.sigstore.dev/cosign/system_config/installation/)                    |
